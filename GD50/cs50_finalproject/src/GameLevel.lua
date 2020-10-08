@@ -47,7 +47,9 @@ end
 
 function GameLevel:render()
     self.tileMap:render()
+    -- if testing < 2 then
 
+    -- end
     for k, object in pairs(self.objects) do
         object:render()
     end

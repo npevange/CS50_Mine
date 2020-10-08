@@ -9,7 +9,7 @@
 MainMenu = Class{__includes = BaseState}
 
 function MainMenu:init()
-    self.mainMenu = Menu {
+    self.mainMenu = Menu {  
         x = VIRTUAL_WIDTH / 2 - 32,
         y = VIRTUAL_HEIGHT / 2 - 16,
         width = 64,

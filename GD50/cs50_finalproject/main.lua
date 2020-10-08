@@ -62,6 +62,7 @@ function love.load()
     gStateStack:push(MainMenu())
 
     love.keyboard.keysPressed = {}
+    
 end
 
 function love.resize(w, h)
@@ -72,12 +73,15 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     end
-
     love.keyboard.keysPressed[key] = true
 end
 
 function love.keyboard.wasPressed(key)
-    return love.keyboard.keysPressed[key]
+    if love.keyboard.keysPressed[key] then
+        return true
+    else
+        return false
+    end
 end
 
 function love.update(dt)

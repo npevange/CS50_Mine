@@ -111,15 +111,7 @@ function Unit.getDef(DEFS, IDS, Unit)
 end
 
 function Unit:render()
-    -- love.graphics.draw(gTextures['Andrew'], gFrames['Andrew'][1],
-    --     (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
-
+    love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
         (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
-
-    if self.Move == 3 then
-        love.graphics.setColor(190, 0, 0, 255)
-        love.graphics.setFont(gFonts['large'])
-        love.graphics.printf('Test', 0, VIRTUAL_HEIGHT / 2 - 72, VIRTUAL_WIDTH, 'center')
-    end
 end

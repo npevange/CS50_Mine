@@ -7,7 +7,7 @@
 ]]
 
 
-SaveMenu = Class{}
+SaveMenu = Class{__includes = BaseState}
 
 function SaveMenu:init() end
 
