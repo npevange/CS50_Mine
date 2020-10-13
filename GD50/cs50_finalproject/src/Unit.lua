@@ -13,15 +13,17 @@ function Unit:init(def)
     self.y = 0
     self.name = def.name
     self.sprite = def.sprite
-    self.Turntaken = false
+    self.turnTaken = false
+    self.moveTaken = false
+    self.attackTaken = false
     self.AI = def.AI or nil
-
 
     self.HPbase = def.HPbase
     self.Attackbase = def.Attackbase
     self.Defensebase = def.Defensebase
     self.Speedbase = def.Speedbase
     self.Move = def.Move
+    self.Range = 1
 
     self.HPIV = def.HPIV
     self.AttackIV = def.AttackIV
@@ -106,7 +108,7 @@ function Unit:statsLevelUp()
     return HPIncrease, attackIncrease, defenseIncrease, speedIncrease
 end
 
-function Unit.getDef(DEFS, IDS, Unit)
+function Unit:getDef(DEFS, IDS, Unit)
     return DEFS[IDS[Unit]]
 end
 

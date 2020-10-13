@@ -8,26 +8,30 @@
 
 MainMenu = Class{__includes = BaseState}
 
-function MainMenu:init()
+function MainMenu:enter()
     self.mainMenu = Menu {  
         x = VIRTUAL_WIDTH / 2 - 32,
         y = VIRTUAL_HEIGHT / 2 - 16,
         width = 64,
-        height = 64,
+        height = 80,
         selectionOn = true,
         items = {
             {
                 text = 'New Game',
                 onSelect = function ()
-                    gStateStack:pop()
-                    gStateStack:push(NewGameState())
-                    --gStateStack:push(NewGameState())
+                    gStateMachine:change('newgamestate')
                 end
             },
             {   text = 'Saved Game',
                 onSelect = function()
                     -- gStateStack:pop()
                     -- gStateStack:push(SaveMenu())
+                end
+            },
+            {
+                text = 'Controls',
+                onSelect = function ()
+                    gStateMachine:change('control')
                 end
             }
         }

@@ -54,7 +54,7 @@ function Room:generateEntities()
     for i = 1, 10 do
         local type = types[math.random(#types)]
 
-        table.insert(self.entities, Entity {
+        table.insert(self.entities, Entity ({
             animations = ENTITY_DEFS[type].animations,
             walkSpeed = ENTITY_DEFS[type].walkSpeed or 20,
 
@@ -69,7 +69,7 @@ function Room:generateEntities()
 
             health = 1,
             break_pot = true
-        })
+        }))
 
         self.entities[i].stateMachine = StateMachine {
             ['walk'] = function() return EntityWalkState(self.entities[i]) end,

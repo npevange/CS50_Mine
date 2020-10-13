@@ -8,15 +8,26 @@
 
 PlayState = Class{__includes = BaseState}
 
-function PlayState:init(party, level)
+function PlayState:enter(party, levelstage)
     self.party = party
-    self.levelStage = level
+    self.levelStage = levelstage
+    if levelStage == nil then
+        gSounds['blip']:play()
+        error('nil level stage')
+    end
+    if self.levelStage.entities == nil then
+        error('nil entities')
+    end
+    if self.levelStage.objects == nil then
+        error('nil objects')
+    end
+    if self.levelStage.tileMap == nil then
+        error('nil tilemap')
+    end
     self.highlightedTile = HighlightedTile(self.levelStage.entities[1].x, self.levelStage.entities[1].y)
 end
 
 function PlayState:update(dt)
-    love.window.setTitle('Odyssey Quest Test')
-    
     -- move cursor around based on bounds of grid
     if love.keyboard.wasPressed('up') then
         self.highlightedTile.y = math.max(0, self.highlightedTile.y - 1)

@@ -8,8 +8,8 @@
 
 Level = Class{__includes = BaseState}
 
-function Level:init(level, party)
-    self.levelNum = level
+function Level:enter(party, levelnum)
+    self.levelNum = levelnum
     self.party = party
     levelx = 6
     levely = 5
@@ -20,16 +20,26 @@ function Level:init(level, party)
         self.party[i].x = i
         self.party[i].y = i
     end
+    if self.levelStage == nil then
+        error('nil level stage')
+    end
+    if self.levelStage.entities ~= nil then
+        -- love.window.setTitle(string.format(#self.levelStage.entities))
+    end
 
-    self.playState = gStateStack:push(PlayState(self.party, self.levelStage))
+    if self.levelStage.tileMap ~= nil then
+        love.window.setTitle(string.format(#self.levelStage.tileMap.tiles))
+    end
+
+    gStateMachine:change('playstate', self.party, self.levelStage)
 end
 
 function Level:update(dt)
     --love.window.setTitle('Odyssey Quest Test')
-    if self.playState ~= nil then
-        gSounds['blip']:play()
-        self.playState:update(dt)
-    end
+    -- if self.playState ~= nil then
+    --     gSounds['blip']:play()
+    --     self.playState:update(dt)
+    -- end
     --self.levelStage:render(dt)
 end
 

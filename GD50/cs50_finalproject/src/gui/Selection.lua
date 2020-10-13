@@ -47,7 +47,7 @@ function Selection:update(dt)
         
         gSounds['blip']:stop()
         gSounds['blip']:play()
-    elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
+    elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('space') then
         self.items[self.currentSelection].onSelect()
         
         gSounds['blip']:stop()

@@ -58,11 +58,16 @@ function love.load()
     -- it is essentially being placed "behind" other running states as needed (like the battle
     -- state)
 
-    gStateStack = StateStack()
-    gStateStack:push(MainMenu())
+    gStateMachine = StateMachine {
+        ['mainmenu'] = function() return MainMenu() end,
+        ['control'] = function() return Controls() end,
+        ['newgamestate'] = function() return NewGameState() end,
+        ['level'] = function() return Level() end,
+        ['playstate'] = function() return PlayState() end
+    }
+    gStateMachine:change('mainmenu')
 
     love.keyboard.keysPressed = {}
-    
 end
 
 function love.resize(w, h)
@@ -86,13 +91,13 @@ end
 
 function love.update(dt)
     Timer.update(dt)
-    gStateStack:update(dt)
+    gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
 end
 
 function love.draw()
     push:start()
-    gStateStack:render()
+    gStateMachine:render()
     push:finish()
 end

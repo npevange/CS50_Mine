@@ -10,9 +10,9 @@
 
 GameLevel = Class{}
 
-function GameLevel:init(entities, objects, tilemap)
+function GameLevel:init(entities, enemies, tilemap)
     self.entities = entities
-    self.objects = objects
+    self.enemies = enemies
     self.tileMap = tilemap
 end
 
@@ -20,15 +20,15 @@ end
     Remove all nil references from tables in case they've set themselves to nil.
 ]]
 function GameLevel:clear()
-    for i = #self.objects, 1, -1 do
-        if not self.objects[i] then
-            table.remove(self.objects, i)
+    for i = #self.enemies, 1, -1 do
+        if not self.enemies[i] then
+            table.remove(self.enemies, i)
         end
     end
 
     for i = #self.entities, 1, -1 do
-        if not self.objects[i] then
-            table.remove(self.objects, i)
+        if not self.enemies[i] then
+            table.remove(self.enemies, i)
         end
     end
 end
@@ -36,8 +36,8 @@ end
 function GameLevel:update(dt)
     self.tileMap:update(dt)
 
-    for k, object in pairs(self.objects) do
-        object:update(dt)
+    for k, enemy in pairs(self.enemies) do
+        enemy:update(dt)
     end
 
     for k, entity in pairs(self.entities) do
@@ -50,8 +50,8 @@ function GameLevel:render()
     -- if testing < 2 then
 
     -- end
-    for k, object in pairs(self.objects) do
-        object:render()
+    for k, enemy in pairs(self.enemies) do
+        enemy:render()
     end
 
     for k, entity in pairs(self.entities) do
