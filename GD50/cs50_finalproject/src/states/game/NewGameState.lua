@@ -76,17 +76,6 @@ function NewGameState:enter()
             }
         }
     }
-    -- self.levelx = 8
-    -- self.levely = 5
-    -- self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum) --Game Level entities, objects, tiles
-
-    -- for i, heroes in pairs(self.party) do
-    --     table.insert(self.levelStage.entities, self.party[i])
-    --     self.party[i].x = i
-    --     self.party[i].y = i
-    -- end
-
-    -- self.highlightedTile = HighlightedTile(self.levelStage.entities[1].x, self.levelStage.entities[1].y)
     NewGameState:level(self)
 
     self.characterheroMenu = CharacterMenu {
@@ -95,7 +84,11 @@ function NewGameState:enter()
         width = 64,
         height = 96,
         group = self.levelStage.entities,
-        selectionOn = false}
+        selectionOn = false,
+        items = {text = 'test',
+                 onSelect = function()
+                    self.characterheroMenu.selectionOn = false
+                 end}}
 
     self.characterenemyMenu = CharacterMenu {
         x = VIRTUAL_WIDTH - 64,
@@ -103,7 +96,11 @@ function NewGameState:enter()
         width = 64,
         height = 96,
         group = self.levelStage.enemies,
-        selectionOn = false}
+        selectionOn = false,
+        items = {text = 'test',
+                 onSelect = function()
+                    self.characterenemyMenu.selectionOn = false
+                 end}}
 end
 
 function NewGameState:level(self)
@@ -124,8 +121,8 @@ function NewGameState:level(self)
 end
 
 function NewGameState:update(dt)
-    -- self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
-    -- self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
+    self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
+    self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
     for i, heroes in pairs(self.party) do
         if self.party[i].turnTaken == false then
             break
@@ -201,13 +198,13 @@ function NewGameState:update(dt)
         self.commandsMenu:update(dt)
     end
 end
-
+ 
 function NewGameState:render(dt)
     self.levelStage:render()
     if self.currentLocations.entities[self.highlightedTile.y][self.highlightedTile.x] == true then
-        -- self.characterheroMenu:render()
+        self.characterheroMenu:render()
     elseif self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.x] == true then
-        -- self.characterenemyMenu:render()
+        self.characterenemyMenu:render()
     end
     
     if self.commandMenuBool == true then

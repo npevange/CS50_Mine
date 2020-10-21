@@ -7,6 +7,7 @@ Event = require 'lib/knife.event'
 push = require 'lib/push'
 Timer = require 'lib/knife.timer'
 
+require "src/CombatCalculator"
 require "src/constants"
 require "src/CurrentLocations"
 require "src/Enemy_defs"
@@ -35,6 +36,7 @@ require "src/states/game/PlayState"
 require "src/states/game/SaveMenu"
 
 require "src/gui/CharacterMenu"
+require "src/gui/CharacterStats"
 require "src/gui/Menu"
 require "src/gui/Panel"
 require "src/gui/ProgressBar"
