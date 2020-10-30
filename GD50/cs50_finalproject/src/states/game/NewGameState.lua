@@ -18,12 +18,17 @@ function NewGameState:enter()
 
     self.selectedUnit = false
     self.currentUnit = nil
+    self.currentUnitIndex = nil
+    self.currentDefender = nil
+    self.currentDefenderIndex = nil
 
     self.commandMenuBool = false
     self.commandAttackBool = false
     self.commandMoveBool = false
     self.commandMagicBool = false
     
+    self.EndTurn = false
+    self.EndTurnCounter = 0
 
     self.commandsMenu = Menu {
         x = VIRTUAL_WIDTH - 64,
@@ -44,7 +49,7 @@ function NewGameState:enter()
             {
                 text = 'Attack',
                 onSelect = function ()
-                    if self.currentUnit.attackTaken == false then
+                    if self.currentUnit.actionTaken == false then
                         self.commandMenuBool = false
                         self.commandAttackBool = true
                     end
@@ -61,7 +66,7 @@ function NewGameState:enter()
                 onSelect = function ()
                     self.currentUnit.turnTaken = true
                     self.currentUnit.moveTaken = true
-                    self.currentUnit.attackTaken = true
+                    self.currentUnit.actionTaken = true
                     self.commandMenuBool = false
                 end
             },
@@ -79,33 +84,39 @@ function NewGameState:enter()
     NewGameState:level(self)
 
     self.characterheroMenu = CharacterMenu {
-        x = VIRTUAL_WIDTH - 64,
+        x = VIRTUAL_WIDTH - 128,
         y = 0,
         width = 64,
         height = 96,
         group = self.levelStage.entities,
-        selectionOn = false,
-        items = {text = 'test',
-                 onSelect = function()
-                    self.characterheroMenu.selectionOn = false
-                 end}}
+        selectionOn = true,
+        items = {
+                    text = 'test test test'
+                },
+                {
+                    text = 'stuff'
+                }
+            }
 
     self.characterenemyMenu = CharacterMenu {
-        x = VIRTUAL_WIDTH - 64,
+        x = VIRTUAL_WIDTH - 128,
         y = 0,
-        width = 64,
+        width = 128,
         height = 96,
         group = self.levelStage.enemies,
-        selectionOn = false,
-        items = {text = 'test',
-                 onSelect = function()
-                    self.characterenemyMenu.selectionOn = false
-                 end}}
+        selectionOn = true,
+        items = {
+                    text = 'test test test test test'
+                },
+                {
+                    text = "stuff stuff"
+                }
+            }
 end
 
 function NewGameState:level(self)
-    self.levelx = 8
-    self.levely = 5
+    self.levelx = 8 --#self.levelStage.tileMap.tiles[1]
+    self.levely = 5 --#self.levelStage.tileMap.tiles
     self.levelNum = self.levelNum + 1
     self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum) --Game Level entities, objects, tiles
     
@@ -118,6 +129,7 @@ function NewGameState:level(self)
     self.highlightedTile = HighlightedTile(self.levelStage.entities[1].x, self.levelStage.entities[1].y)
 
     self.currentLocations = CurrentLocations(self.levelStage)
+    self.levelStage.currentLocations = self.currentLocations
 end
 
 function NewGameState:update(dt)
@@ -127,18 +139,33 @@ function NewGameState:update(dt)
         if self.party[i].turnTaken == false then
             break
         else
-            -- End Turn Sequence
-
-            -- Opponents take turns
-
-            -- reset heroes turns
-            for i, heroes in pairs(self.party) do
-                self.party[i].turnTaken = false
-                self.party[i].moveTaken = false
-                self.party[i].attackTaken = false
-            end
-            self.currentLocations = CurrentLocations(self.levelStage)
+            self.EndTurnCounter = self.EndTurnCounter + 1
         end
+    end
+    if self.EndTurnCounter == #self.party then
+        self.EndTurn = true
+    end
+    self.EndTurnCounter = 0
+    if self.EndTurn == true then
+        -- End Turn Sequence
+
+        -- Opponents take turns
+        for i, enemy in pairs(self.levelStage.enemies) do
+            --Enemy Turn action, move and attack.
+            EnemyTurn(enemy, self.levelStage, i)
+            self.currentLocations = CurrentLocations(self.levelStage)
+            self.levelStage.currentLocations = self.currentLocations
+        end
+
+        -- reset heroes turns
+        for i, heroes in pairs(self.party) do
+            self.party[i].turnTaken = false
+            self.party[i].moveTaken = false
+            self.party[i].actionTaken = false
+        end
+        self.currentLocations = CurrentLocations(self.levelStage)
+        self.levelStage.currentLocations = self.currentLocations
+        self.EndTurn = false
     end
     if self.commandMenuBool == false then
         -- move cursor around based on bounds of grid
@@ -162,6 +189,7 @@ function NewGameState:update(dt)
                     if self.party[i].x == self.highlightedTile.x and self.party[i].y == self.highlightedTile.y then
                         self.selectedUnit = true
                         self.currentUnit = self.party[i]
+                        self.currentUnitIndex = i
                         self.commandMenuBool = true
                     end
                 end
@@ -172,6 +200,7 @@ function NewGameState:update(dt)
                         self.currentUnit.x = self.highlightedTile.x
                         self.currentUnit.y = self.highlightedTile.y
                         self.currentLocations = CurrentLocations(self.levelStage)
+                        self.levelStage.currentLocations = self.currentLocations
                         self.currentUnit.moveTaken = true
                         self.commandMoveBool = false
                     end
@@ -183,16 +212,41 @@ function NewGameState:update(dt)
             -- Attack command
             elseif self.commandAttackBool == true then
                 if (math.abs(self.currentUnit.x - self.highlightedTile.x) + math.abs(self.currentUnit.y - self.highlightedTile.y)) <= self.currentUnit.Range then
-                    if self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.y] == true then
-                        --CombatCalculator()
+                    if self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.x] == true then
+                        for i, enemies in pairs(self.levelStage.enemies) do
+                            if self.levelStage.enemies[i].x == self.highlightedTile.x and self.levelStage.enemies[i].y == self.highlightedTile.y then
+                                self.currentDefender = self.levelStage.enemies[i]
+                                self.currentDefenderIndex = i
+                            end
+                        end
                         -- attack stuff goes here, check for enemy in the tile, calculate damage, etc.
+                        local deadUnit = false
+                        deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage)
+                        -- if dead units, remove from levelStage
+                        if deadUnit == true then
+                            if self.currentUnit.HP < 1 then
+                                table.remove(self.levelStage.entities, self.currentUnitIndex)
+                            end
+                            if self.currentDefender.HP < 1 then
+                                table.remove(self.levelStage.enemies, self.currentDefenderIndex)
+                            end
+                            self.currentLocations = CurrentLocations(self.levelStage)
+                            self.levelStage.currentLocations = self.currentLocations
+                        end
+
+                        -- check that there are still heroes and enemies left
+                        if #self.levelStage.enemies == 0 then
+                            love.window.setTitle(string.format("You Win"))
+                        end
+                        self.currentUnit.actionTaken = true
+                        self.commandAttackBool = false
+                        self.commandMenuBool = true
                     end
                 else
                     self.commandAttackBool = false
                     self.commandMenuBool = true
                 end
             end
-
         end
     else
         self.commandsMenu:update(dt)
@@ -200,12 +254,13 @@ function NewGameState:update(dt)
 end
  
 function NewGameState:render(dt)
-    self.levelStage:render()
     if self.currentLocations.entities[self.highlightedTile.y][self.highlightedTile.x] == true then
         self.characterheroMenu:render()
     elseif self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.x] == true then
         self.characterenemyMenu:render()
     end
+    self.levelStage:render()
+
     
     if self.commandMenuBool == true then
         self.commandsMenu:render()

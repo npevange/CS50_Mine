@@ -15,7 +15,7 @@ function Unit:init(def)
     self.sprite = def.sprite
     self.turnTaken = false
     self.moveTaken = false
-    self.attackTaken = false
+    self.actionTaken = false
     self.AI = def.AI or nil
 
     self.HPbase = def.HPbase
@@ -39,17 +39,17 @@ function Unit:init(def)
 
     self.currentEXP = 0
     self.EXPtoLevel = 100
-
-    self:calculateStats()
+    
+    self:calculateStats(self)
 
     self.currentHP = self.HP
 end
 
-function Unit:calculateStats()
+function Unit:calculateStats(self)
     --if self.level ~= nil then
         if self.level ~= nil and self.level > 0 then
             for i = 1, self.level do
-                Unit:statsLevelUp()
+                Unit:statsLevelUp(self)
             end
         end
     --end
@@ -68,7 +68,7 @@ end
     higher IVs will on average give higher stat increases per level. Returns all of
     the increases so they can be displayed in the TakeTurnState on level up.
 ]]
-function Unit:statsLevelUp()
+function Unit:statsLevelUp(self)
     local HPIncrease = 0
 
     for j = 1, 3 do

@@ -10,10 +10,13 @@
 
 GameLevel = Class{}
 
-function GameLevel:init(entities, enemies, tilemap)
+function GameLevel:init(entities, enemies, tilemap, hitMod, defMod)
     self.entities = entities
     self.enemies = enemies
     self.tileMap = tilemap
+    self.hitMod = hitMod
+    self.defMod = defMod
+    self.currentLocations = nil
 end
 
 --[[

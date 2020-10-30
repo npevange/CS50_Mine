@@ -4,7 +4,7 @@
 
     Author: Nathan Evangelista
     npevangelista@ucdavis.edu
-    
+
     Modified Selection to display character Stats
 
     The CharacterStats class gives us a list of textual items that link to callbacks;
@@ -22,7 +22,7 @@ function CharacterStats:init(def)
 
     self.height = def.height
     self.width = def.width
-    self.font = def.font or gFonts['medium']
+    self.font = gFonts['medium']
 
     self.gapHeight = self.height / #self.items
 
@@ -31,30 +31,30 @@ function CharacterStats:init(def)
 end
 
 function CharacterStats:update(dt)
-    if love.keyboard.wasPressed('up') then
-        if self.currentSelection == 1 then
-            self.currentSelection = #self.items
-        else
-            self.currentSelection = self.currentSelection - 1
-        end
+    -- if love.keyboard.wasPressed('up') then
+    --     if self.currentSelection == 1 then
+    --         self.currentSelection = #self.items
+    --     else
+    --         self.currentSelection = self.currentSelection - 1
+    --     end
         
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
-    elseif love.keyboard.wasPressed('down') then
-        if self.currentSelection == #self.items then
-            self.currentSelection = 1
-        else
-            self.currentSelection = self.currentSelection + 1
-        end
+    --     gSounds['blip']:stop()
+    --     gSounds['blip']:play()
+    -- elseif love.keyboard.wasPressed('down') then
+    --     if self.currentSelection == #self.items then
+    --         self.currentSelection = 1
+    --     else
+    --         self.currentSelection = self.currentSelection + 1
+    --     end
         
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
-    elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('space') then
-        self.items[self.currentSelection].onSelect()
+    --     gSounds['blip']:stop()
+    --     gSounds['blip']:play()
+    -- elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('space') then
+        -- self.items[self.currentSelection].onSelect()
         
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
-    end
+        -- gSounds['blip']:stop()
+        -- gSounds['blip']:play()
+    -- end
 end
 
 function CharacterStats:render()

@@ -12,42 +12,69 @@ Party = Class{}
 function Party:init()
     self.partyMembers = {}
 
-    self.Andrew = Unit({
-        HERO_DEFS['Andrew']
-    }, 1)
+    self.Andrew = Unit{
+       x = 1,
+       y = 1,
+       name = 'Andrew',
+       sprite = 'Andrew',
+       HPbase = 10,
+       Attackbase = 3,
+       Defensebase = 5,
+       Speedbase = 4,
+       Move = 3,
+       HPIV = 4,
+       AttackIV = 2,
+       DefenseIV = 3,
+       SpeedIV = 2,
+       level = 1
+    }
 
-    self.Andrew.x = 1
-    self.Andrew.y = 1
-    self.Andrew.name = 'Andrew'
-    self.Andrew.sprite = 'Andrew'
-    self.Andrew.HPbase = 10
-    self.Andrew.Attackbase = 3
-    self.Andrew.Defensebase = 5
-    self.Andrew.Speedbase = 4
-    self.Andrew.Move = 3
-    self.Andrew.HPIV = 4
-    self.Andrew.AttackIV = 2
-    self.Andrew.DefenseIV = 3
-    self.Andrew.SpeedIV = 2
-    self.Andrew.level = 1
+    -- self.Andrew.x = 1
+    -- self.Andrew.y = 1
+    -- self.Andrew.name = 'Andrew'
+    -- self.Andrew.sprite = 'Andrew'
+    -- self.Andrew.HPbase = 10
+    -- self.Andrew.Attackbase = 3
+    -- self.Andrew.Defensebase = 5
+    -- self.Andrew.Speedbase = 4
+    -- self.Andrew.Move = 3
+    -- self.Andrew.HPIV = 4
+    -- self.Andrew.AttackIV = 2
+    -- self.Andrew.DefenseIV = 3
+    -- self.Andrew.SpeedIV = 2
+    -- self.Andrew.level = 1
 
-    self.Christian = Unit({
-        HERO_DEFS['Christian']
-    }, 1)
-    self.Christian.x = 2
-    self.Christian.y = 2
-    self.Christian.name = 'Christian'
-    self.Christian.sprite = 'Christian'
-    self.Christian.HPbase = 8
-    self.Christian.Attackbase = 4
-    self.Christian.Defensebase = 2
-    self.Christian.Speedbase = 6
-    self.Christian.Move = 3
-    self.Christian.HPIV = 3
-    self.Christian.AttackIV = 5
-    self.Christian.DefenseIV = 3
-    self.Christian. SpeedIV = 3
-    self.Christian.level = 1
+    self.Christian = Unit{
+       x = 1,
+       y = 2,
+       name = 'Christian',
+       sprite = 'Christian',
+       HPbase = 8,
+       Attackbase = 4,
+       Defensebase = 2,
+       Speedbase = 6,
+       Move = 3,
+       HPIV = 3,
+       AttackIV = 5,
+       DefenseIV = 3,
+        SpeedIV = 3,
+       level = 1
+    }
+
+    -- self.Christian.x = 2
+    -- self.Christian.y = 2
+    -- self.Christian.name = 'Christian'
+    -- self.Christian.sprite = 'Christian'
+    -- self.Christian.HPbase = 8
+    -- self.Christian.Attackbase = 4
+    -- self.Christian.Defensebase = 2
+    -- self.Christian.Speedbase = 6
+    -- self.Christian.Move = 3
+    -- self.Christian.HPIV = 3
+    -- self.Christian.AttackIV = 5
+    -- self.Christian.DefenseIV = 3
+    -- self.Christian. SpeedIV = 3
+    -- self.Christian.level = 1
     
     self.partyMembers = {self.Andrew, self.Christian}
 

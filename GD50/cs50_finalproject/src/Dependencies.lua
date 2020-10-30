@@ -7,10 +7,15 @@ Event = require 'lib/knife.event'
 push = require 'lib/push'
 Timer = require 'lib/knife.timer'
 
+require "src/AdjustMove"
+require "src/CheckMove"
+require "src/CheckRange"
 require "src/CombatCalculator"
 require "src/constants"
 require "src/CurrentLocations"
 require "src/Enemy_defs"
+require "src/EnemyTurn"
+require "src/FindClosestHero"
 require "src/GameLevel"
 require "src/Hero_defs"
 require "src/HighlightedTile"
@@ -21,6 +26,7 @@ require "src/StateMachine"
 require "src/Terrain_defs"
 require "src/Tile"
 require "src/TileMap"
+require "src/ToZero"
 require "src/Unit"
 require "src/Util"
 

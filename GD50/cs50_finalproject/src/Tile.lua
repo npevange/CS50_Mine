@@ -14,7 +14,7 @@ function Tile:init(x, y, id)
     self.width = TILE_SIZE
     self.height = TILE_SIZE
     self.id = id
-    self.unitOnTile = false
+
 end
 
 function Tile:render()
