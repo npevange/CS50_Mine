@@ -122,8 +122,8 @@ function NewGameState:level(self)
     
     for i, heroes in pairs(self.party) do
         table.insert(self.levelStage.entities, self.party[i])
-        self.party[i].x = 1
-        self.party[i].y = i
+        self.levelStage.entities[i].x = 1
+        self.levelStage.entities[i].y = i
     end
 
     self.highlightedTile = HighlightedTile(self.levelStage.entities[1].x, self.levelStage.entities[1].y)
@@ -133,16 +133,20 @@ function NewGameState:level(self)
 end
 
 function NewGameState:update(dt)
+    if #self.levelStage.enemies == 0 then
+        -- You Win, widepeepoHappy
+        gStateMachine:change('mainmenu')
+    end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
     self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
-    for i, heroes in pairs(self.party) do
-        if self.party[i].turnTaken == false then
+    for i, heroes in pairs(self.levelStage.entities) do
+        if self.levelStage.entities[i].turnTaken == false then
             break
         else
             self.EndTurnCounter = self.EndTurnCounter + 1
         end
     end
-    if self.EndTurnCounter == #self.party then
+    if self.EndTurnCounter == #self.levelStage.entities then
         self.EndTurn = true
     end
     self.EndTurnCounter = 0
@@ -155,13 +159,17 @@ function NewGameState:update(dt)
             EnemyTurn(enemy, self.levelStage, i)
             self.currentLocations = CurrentLocations(self.levelStage)
             self.levelStage.currentLocations = self.currentLocations
+            if #self.levelStage.entities == 0 then
+                -- You Lose, Sadge
+                gStateMachine:change('mainmenu')
+            end
         end
 
         -- reset heroes turns
-        for i, heroes in pairs(self.party) do
-            self.party[i].turnTaken = false
-            self.party[i].moveTaken = false
-            self.party[i].actionTaken = false
+        for i, heroes in pairs(self.levelStage.entities) do
+            self.levelStage.entities[i].turnTaken = false
+            self.levelStage.entities[i].moveTaken = false
+            self.levelStage.entities[i].actionTaken = false
         end
         self.currentLocations = CurrentLocations(self.levelStage)
         self.levelStage.currentLocations = self.currentLocations
@@ -185,10 +193,10 @@ function NewGameState:update(dt)
             --Command Menu if selecting a hero
             if self.commandMenuBool == false and self.commandMoveBool == false and self.commandAttackBool == false then
                 gSounds['blip']:play()
-                for i, heroes in pairs(self.party) do
-                    if self.party[i].x == self.highlightedTile.x and self.party[i].y == self.highlightedTile.y then
+                for i, heroes in pairs(self.levelStage.entities) do
+                    if self.levelStage.entities[i].x == self.highlightedTile.x and self.levelStage.entities[i].y == self.highlightedTile.y then
                         self.selectedUnit = true
-                        self.currentUnit = self.party[i]
+                        self.currentUnit = self.levelStage.entities[i]
                         self.currentUnitIndex = i
                         self.commandMenuBool = true
                     end
