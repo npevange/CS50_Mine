@@ -12,7 +12,6 @@ NewGameState = Class{__includes = BaseState}
 function NewGameState:enter()
     -- init party
     self.party = Party:init()
-
     --init level
     self.levelNum = 0
 
@@ -115,8 +114,8 @@ function NewGameState:enter()
 end
 
 function NewGameState:level(self)
-    self.levelx = 8 --#self.levelStage.tileMap.tiles[1]
-    self.levely = 5 --#self.levelStage.tileMap.tiles
+    self.levelx = 8-- math.random(6,8) --#self.levelStage.tileMap.tiles[1]
+    self.levely = 5-- math.random(4,5) --#self.levelStage.tileMap.tiles
     self.levelNum = self.levelNum + 1
     self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum) --Game Level entities, objects, tiles
     
@@ -133,9 +132,13 @@ function NewGameState:level(self)
 end
 
 function NewGameState:update(dt)
+    -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles[1])) -- X
+    -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles)) -- Y
     if #self.levelStage.enemies == 0 then
         -- You Win, widepeepoHappy
-        gStateMachine:change('mainmenu')
+        love.window.setTitle(string.format('you win'))
+        PartyHeal(self.party)
+        self:level(self)
     end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
     self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
@@ -156,11 +159,17 @@ function NewGameState:update(dt)
         -- Opponents take turns
         for i, enemy in pairs(self.levelStage.enemies) do
             --Enemy Turn action, move and attack.
+            -- love.window.setTitle(string.format("Enemy current locs"))
+            self.currentLocations = CurrentLocations(self.levelStage)
+            -- love.window.setTitle(string.format("Enemy Turn"))
             EnemyTurn(enemy, self.levelStage, i)
+            -- love.window.setTitle(string.format("Enemy Check current locs"))
             self.currentLocations = CurrentLocations(self.levelStage)
             self.levelStage.currentLocations = self.currentLocations
+            -- love.window.setTitle(string.format("Enemy checked current locs"))
             if #self.levelStage.entities == 0 then
                 -- You Lose, Sadge
+                love.window.setTitle(string.format('you lose'))
                 gStateMachine:change('mainmenu')
             end
         end
@@ -229,6 +238,7 @@ function NewGameState:update(dt)
                         end
                         -- attack stuff goes here, check for enemy in the tile, calculate damage, etc.
                         local deadUnit = false
+                        love.window.setTitle(string.format("Combat"))
                         deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage)
                         -- if dead units, remove from levelStage
                         if deadUnit == true then
@@ -238,8 +248,10 @@ function NewGameState:update(dt)
                             if self.currentDefender.HP < 1 then
                                 table.remove(self.levelStage.enemies, self.currentDefenderIndex)
                             end
+                            -- love.window.setTitle(string.format("Check current locs"))
                             self.currentLocations = CurrentLocations(self.levelStage)
                             self.levelStage.currentLocations = self.currentLocations
+                            -- love.window.setTitle(string.format("Checked current locs"))
                         end
 
                         -- check that there are still heroes and enemies left
@@ -247,8 +259,10 @@ function NewGameState:update(dt)
                             love.window.setTitle(string.format("You Win"))
                         end
                         self.currentUnit.actionTaken = true
+                        self.currentUnit.turnTaken = true
                         self.commandAttackBool = false
-                        self.commandMenuBool = true
+                        self.commandMenuBool = false
+                        love.window.setTitle(string.format("End of attack"))
                     end
                 else
                     self.commandAttackBool = false

@@ -35,7 +35,7 @@ function Unit:init(def)
     self.Defense = self.Defensebase
     self.Speed = self.Speedbase
 
-    self.level = def.level
+    self.level = tonumber(def.level)
 
     self.currentEXP = 0
     self.EXPtoLevel = 100
@@ -108,9 +108,9 @@ function Unit:statsLevelUp(self)
     return HPIncrease, attackIncrease, defenseIncrease, speedIncrease
 end
 
-function Unit:getDef(DEFS, IDS, Unit)
-    return DEFS[IDS[Unit]]
-end
+-- function Unit.getDef(DEFS, IDS, unit)
+--     return DEFS[IDS[unit]]
+-- end
 
 function Unit:render()
     love.graphics.setColor(255, 255, 255, 255)

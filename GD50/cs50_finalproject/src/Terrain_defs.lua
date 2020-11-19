@@ -5,6 +5,7 @@
     Author: Nathan Evangelista
     npevangelista@ucdavis.edu
 ]]
+
 function TerrainDef(Tile_ID)
     local hitmod, defmod
 

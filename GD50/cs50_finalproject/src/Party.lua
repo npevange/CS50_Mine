@@ -11,26 +11,26 @@ Party = Class{}
 
 function Party:init()
     self.partyMembers = {}
-
+    local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 1)
+    
     self.Andrew = Unit{
-       x = 1,
-       y = 1,
-       name = 'Andrew',
-       sprite = 'Andrew',
-       HPbase = 10,
-       Attackbase = 3,
-       Defensebase = 5,
-       Speedbase = 4,
-       Move = 3,
-       HPIV = 4,
-       AttackIV = 2,
-       DefenseIV = 3,
-       SpeedIV = 2,
-       level = 1
+        name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level
     }
+    -- love.window.setTitle(string.format(self.Andrew.level))
+    --    name = 'Andrew',
+    --    sprite = 'Andrew',
+    --    HPbase = 10,
+    --    Attackbase = 3,
+    --    Defensebase = 5,
+    --    Speedbase = 4,
+    --    Move = 3,
+    --    HPIV = 4,
+    --    AttackIV = 2,
+    --    DefenseIV = 3,
+    --    SpeedIV = 2,
+    --    level = 1
+    -- }
 
-    -- self.Andrew.x = 1
-    -- self.Andrew.y = 1
     -- self.Andrew.name = 'Andrew'
     -- self.Andrew.sprite = 'Andrew'
     -- self.Andrew.HPbase = 10
@@ -44,21 +44,9 @@ function Party:init()
     -- self.Andrew.SpeedIV = 2
     -- self.Andrew.level = 1
 
+    name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 2)
     self.Christian = Unit{
-       x = 1,
-       y = 2,
-       name = 'Christian',
-       sprite = 'Christian',
-       HPbase = 8,
-       Attackbase = 4,
-       Defensebase = 2,
-       Speedbase = 6,
-       Move = 3,
-       HPIV = 3,
-       AttackIV = 5,
-       DefenseIV = 3,
-        SpeedIV = 3,
-       level = 1
+        name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level
     }
 
     -- self.Christian.x = 2
@@ -79,18 +67,4 @@ function Party:init()
     self.partyMembers = {self.Andrew, self.Christian}
 
     return self.partyMembers
-end
-
-function Party:defs()
-    self.partyMembers = {}
-
-    for i = 1, #HERO_IDS do
-        local test = 0
-    end
-end
-
-function Party:heal()
-    for i, hero in pairs(self.partyMembers) do
-        hero.currentHP = hero.HP
-    end
 end

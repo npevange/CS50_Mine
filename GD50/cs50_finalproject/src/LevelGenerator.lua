@@ -8,7 +8,7 @@
 
 LevelGenerator = Class{}
 
-function LevelGenerator.generate(width, height, level)
+function LevelGenerator.generate(width, height, levelNum)
     local tiles = {}
     local hitMod = {}
     local defMod = {}
@@ -35,49 +35,38 @@ function LevelGenerator.generate(width, height, level)
     end
 
     -- Enemy Generation
-    local numEnemies = 1 --math.random(3,6)
-
+    local numEnemies = 3 --math.random(2,3)
+    local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI
     for x = 1, numEnemies do
-        enemy = Unit({
-            name = 'Bandit',
-            sprite = 'Bandit',
-            HPbase = 8,
-            Attackbase = 5,
-            Defensebase = 2,
-            Speedbase = 2,
-            Move = 3,
-            HPIV = 4,
-            AttackIV = 1,
-            DefenseIV = 2,
-            SpeedIV = 1,
-            AI = 'aggro',
-            level = 1
-        })
+        name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI = GetUnitDef(ENEMY_DEFS, ENEMY_IDS, x)
+        enemy = Unit{
+            name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = levelNum, AI = AI
+        }
         table.insert(enemies, enemy)
 
         enemy.x = width
         enemy.y = height - x
     end
 
-    enemy = Unit({
-        name = 'Swordsman',
-        sprite = 'Swordsman',
-        HPbase = 7,
-        Attackbase = 5,
-        Defensebase = 2,
-        Speedbase = 3,
-        Move = 3,
-        HPIV = 2,
-        AttackIV = 3,
-        DefenseIV = 1,
-        SpeedIV = 4,
-        AI = 'aggro',
-        level = 1
-    })
-    table.insert(enemies, enemy)
+    -- enemy = Unit({
+    --     name = 'Swordsman',
+    --     sprite = 'Swordsman',
+    --     HPbase = 7,
+    --     Attackbase = 5,
+    --     Defensebase = 2,
+    --     Speedbase = 3,
+    --     Move = 3,
+    --     HPIV = 2,
+    --     AttackIV = 3,
+    --     DefenseIV = 1,
+    --     SpeedIV = 4,
+    --     AI = 'aggro',
+    --     level = 1
+    -- })
+    -- table.insert(enemies, enemy)
 
-    enemy.x = width
-    enemy.y = height
+    -- enemy.x = width
+    -- enemy.y = height
 
 
     local map = TileMap(width, height)

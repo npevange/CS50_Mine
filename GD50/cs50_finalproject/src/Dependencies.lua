@@ -17,11 +17,14 @@ require "src/Enemy_defs"
 require "src/EnemyTurn"
 require "src/FindClosestHero"
 require "src/GameLevel"
+require "src/GetUnitDef"
 require "src/Hero_defs"
 require "src/HighlightedTile"
 require "src/LevelGenerator"
 require "src/Locations"
 require "src/Party"
+require "src/PartyHeal"
+require "src/Sleep"
 require "src/StateMachine"
 require "src/Terrain_defs"
 require "src/Tile"
@@ -55,6 +58,7 @@ gTextures = {
     ['Christian'] = love.graphics.newImage('graphics/Christian.png'),
     ['Bandit'] = love.graphics.newImage('graphics/Bandit.png'),
     ['Swordsman'] = love.graphics.newImage('graphics/Swordsman.png'),
+    ['TestingCube'] = love.graphics.newImage('graphics/TestingCube.png'),
     ['cursor'] = love.graphics.newImage('graphics/cursor.png')
 }
 
@@ -64,6 +68,7 @@ gFrames = {
     ['Christian'] = GenerateQuads(gTextures['Christian'], 32, 32),
     ['Bandit'] = GenerateQuads(gTextures['Bandit'], 32, 32),
     ['Swordsman'] = GenerateQuads(gTextures['Swordsman'], 32, 32),
+    ['TestingCube'] = GenerateQuads(gTextures['TestingCube'], 32, 32)
 }
 
 gFonts = {

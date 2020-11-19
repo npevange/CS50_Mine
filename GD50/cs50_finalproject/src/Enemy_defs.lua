@@ -7,7 +7,7 @@
 ]]
 
 ENEMY_IDS = {
-    'Bandit', 'Swordsman'
+    'Bandit', 'Swordsman', 'TestingCube'
 }
 
 ENEMY_DEFS = {
@@ -29,6 +29,20 @@ ENEMY_DEFS = {
     ['Swordsman'] = {
         name = 'Swordsman',
         sprite = 'Swordsman',
+        HPbase = 7,
+        Attackbase = 5,
+        Defensebase = 2,
+        Speedbase = 3,
+        Move = 3,
+        HPIV = 2,
+        AttackIV = 3,
+        DefenseIV = 1,
+        SpeedIV = 4,
+        AI = 'aggro'
+    },
+    ['TestingCube'] = {
+        name = 'TestingCube',
+        sprite = 'TestingCube',
         HPbase = 7,
         Attackbase = 5,
         Defensebase = 2,
