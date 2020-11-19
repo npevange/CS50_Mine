@@ -21,7 +21,7 @@ function AdjustMove(enemy, moveX, moveY, levelStage)
         tempmoveX = ToZero(tempmoveX)
         checkMove = CheckMove(enemy, tempmoveX, tempmoveY, levelStage)
         if checkMove == false then
-            tempmoveX = moveX
+            tempmoveX = tempmoveX
             tempmoveY = ToZero(tempmoveY)
         else
             return tempmoveX, tempmoveY
@@ -30,7 +30,7 @@ function AdjustMove(enemy, moveX, moveY, levelStage)
         tempmoveY = ToZero(tempmoveY)
         checkMove = CheckMove(enemy, tempmoveX, tempmoveY, levelStage)
         if checkMove == false then
-            tempmoveY = moveY
+            tempmoveY = tempmoveY
             tempmoveX = ToZero(tempmoveX)
         else
             return tempmoveX, tempmoveY
