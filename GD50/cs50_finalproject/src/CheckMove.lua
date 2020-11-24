@@ -11,7 +11,7 @@
 -- Need to adjust moveX and moveY to be + / -
 function CheckMove(enemy, moveX, moveY, levelStage)
     if (moveX + moveY) > enemy.Range then
-        -- love.window.setTitle(string.format("NOT ENOUGH MOVE"))
+        -- love.window.setTitle(string.format("NOT ENOUGH MOVE, X" .. moveX .. "Y" .. moveY))
         return false
     elseif (enemy.x + moveX) <= 0 or (enemy.x + moveX) > #levelStage.tileMap.tiles[1] then
         -- love.window.setTitle(string.format("OUT OF BOUNDS X"))

@@ -11,10 +11,11 @@ CharacterMenu = Class{}
 function CharacterMenu:init(def)
     self.panel = Panel(def.x, def.y, def.width, def.height)
     self.closed = false
-    -- self.referenceGroup = def.group
-    -- self.referenceUnit = self.referenceGroup[1]
+    self.referenceGroup = def.group
+    self.referenceUnit = self.referenceGroup[1]
     self.charStats = CharacterStats {
-        items = def.items,
+        items = {{text = string.format(self.referenceUnit.name)},
+                {text = string.format(self.referenceUnit.currentHP)}},
         x = def.x,
         y = def.y,
         width = def.width,
@@ -24,11 +25,11 @@ function CharacterMenu:init(def)
 end
 
 function CharacterMenu:update(dt, x, y)
-    -- for units = 1, #self.referenceGroup do
-    --     if self.referenceGroup[units].x == x and self.referenceGroup[units].y == y then
-    --         self.referenceUnit = self.referenceGroup[units]
-    --     end
-    -- end
+    for i, units in pairs(self.referenceGroup) do
+        if self.referenceGroup[i].x == x and self.referenceGroup[i].y == y then
+            self.referenceUnit = self.referenceGroup[i]
+        end
+    end
     self.charStats:update(dt)
 end
 

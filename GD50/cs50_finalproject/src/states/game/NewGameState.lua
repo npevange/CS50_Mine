@@ -88,14 +88,7 @@ function NewGameState:enter()
         width = 64,
         height = 96,
         group = self.levelStage.entities,
-        selectionOn = true,
-        items = {
-                    text = 'test test test'
-                },
-                {
-                    text = 'stuff'
-                }
-            }
+        selectionOn = false}
 
     self.characterenemyMenu = CharacterMenu {
         x = VIRTUAL_WIDTH - 128,
@@ -103,14 +96,7 @@ function NewGameState:enter()
         width = 128,
         height = 96,
         group = self.levelStage.enemies,
-        selectionOn = true,
-        items = {
-                    text = 'test test test test test'
-                },
-                {
-                    text = "stuff stuff"
-                }
-            }
+        selectionOn = false}
 end
 
 function NewGameState:level(self)
@@ -135,7 +121,7 @@ function NewGameState:update(dt)
     -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles[1])) -- X
     -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles)) -- Y
     if #self.levelStage.enemies == 0 then
-        -- You Win, widepeepoHappy
+        -- You Win
         love.window.setTitle(string.format('you win'))
         PartyHeal(self.party)
         self:level(self)
@@ -242,10 +228,10 @@ function NewGameState:update(dt)
                         deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage)
                         -- if dead units, remove from levelStage
                         if deadUnit == true then
-                            if self.currentUnit.HP < 1 then
+                            if self.currentUnit.currentHP < 1 then
                                 table.remove(self.levelStage.entities, self.currentUnitIndex)
                             end
-                            if self.currentDefender.HP < 1 then
+                            if self.currentDefender.currentHP < 1 then
                                 table.remove(self.levelStage.enemies, self.currentDefenderIndex)
                             end
                             -- love.window.setTitle(string.format("Check current locs"))
@@ -262,7 +248,6 @@ function NewGameState:update(dt)
                         self.currentUnit.turnTaken = true
                         self.commandAttackBool = false
                         self.commandMenuBool = false
-                        love.window.setTitle(string.format("End of attack"))
                     end
                 else
                     self.commandAttackBool = false

@@ -34,12 +34,14 @@ function FindClosestHero(enemy, levelStage, index)
         love.window.setTitle(string.format("Vert".. index))
         local moveX = 0
         local moveY = enemy.Move
+        -- Movement
+        if math.abs(relativeY) < (enemy.Move + enemy.Range) then
+            moveY = math.abs(relativeY)
+        end
         if relativeY < 0 then
             moveY = moveY * -1
         end
-        -- Movement
         checkMove = CheckMove(enemy, moveX, moveY, levelStage)
-        -- STUCK IN LOOP
 
         while(checkMove == false) do
             moveX, moveY = AdjustMove(enemy, moveX, moveY, levelStage)
@@ -48,6 +50,7 @@ function FindClosestHero(enemy, levelStage, index)
                 break
             end
         end
+
         enemy.x = enemy.x + moveX
         enemy.y = enemy.y + moveY
         -- Attack if Possible
@@ -56,10 +59,10 @@ function FindClosestHero(enemy, levelStage, index)
             love.window.setTitle(string.format("Vert Combat" .. index))
             deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage)
             if deadUnit == true then
-                if enemy.HP < 1 then
+                if enemy.currentHP < 1 then
                     table.remove(levelStage.enemies, index)
                 end
-                if levelStage.entities[closestHeroIndex].HP < 1 then
+                if levelStage.entities[closestHeroIndex].currentHP < 1 then
                     table.remove(levelStage.entities, closestHeroIndex)
                 end
             end
@@ -70,6 +73,9 @@ function FindClosestHero(enemy, levelStage, index)
         love.window.setTitle(string.format("Horiz" .. index))
         local moveX = enemy.Move
         local moveY = 0
+        if math.abs(relativeX) < (enemy.Move + enemy.Range) then
+            moveX = math.abs(relativeX)
+        end
         if relativeX < 0 then
             moveX = moveX * -1
         end
@@ -90,10 +96,10 @@ function FindClosestHero(enemy, levelStage, index)
             love.window.setTitle(string.format("Horiz Combat" .. index))
             deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage)
             if deadUnit == true then
-                if enemy.HP < 1 then
+                if enemy.currentHP < 1 then
                     table.remove(levelStage.enemies, index)
                 end
-                if levelStage.entities[closestHeroIndex].HP < 1 then
+                if levelStage.entities[closestHeroIndex].currentHP < 1 then
                     table.remove(levelStage.entities, closestHeroIndex)
                 end
             end
@@ -106,6 +112,10 @@ function FindClosestHero(enemy, levelStage, index)
         local hypotenuse = math.sqrt((relativeX ^ 2) + (relativeY ^ 2))
         local moveX = (relativeX * enemy.Move) / hypotenuse
         local moveY = (relativeY * enemy.Move) / hypotenuse
+        if math.abs(relativeX) + math.abs(relativeY) < (enemy.Move + enemy.Range) then
+            moveX = relativeX
+            moveY = relativeY
+        end
         if moveX > 0 then
             moveX = math.floor(moveX)
         else
@@ -131,10 +141,10 @@ function FindClosestHero(enemy, levelStage, index)
             love.window.setTitle(string.format("Tri Combat" .. index))
             deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage)
             if deadUnit == true then
-                if enemy.HP < 1 then
+                if enemy.currentHP < 1 then
                     table.remove(levelStage.enemies, index)
                 end
-                if levelStage.entities[closestHeroIndex].HP < 1 then
+                if levelStage.entities[closestHeroIndex].currentHP < 1 then
                     table.remove(levelStage.entities, closestHeroIndex)
                 end
             end

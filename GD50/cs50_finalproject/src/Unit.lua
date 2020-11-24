@@ -108,10 +108,6 @@ function Unit:statsLevelUp(self)
     return HPIncrease, attackIncrease, defenseIncrease, speedIncrease
 end
 
--- function Unit.getDef(DEFS, IDS, unit)
---     return DEFS[IDS[unit]]
--- end
-
 function Unit:render()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
