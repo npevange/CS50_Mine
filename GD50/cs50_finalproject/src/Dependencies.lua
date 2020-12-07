@@ -59,7 +59,10 @@ gTextures = {
     ['Bandit'] = love.graphics.newImage('graphics/Bandit.png'),
     ['Swordsman'] = love.graphics.newImage('graphics/Swordsman.png'),
     ['TestingCube'] = love.graphics.newImage('graphics/TestingCube.png'),
-    ['cursor'] = love.graphics.newImage('graphics/cursor.png')
+    ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
+    ['Goblin'] = love.graphics.newImage('graphics/Goblin.png'),
+    ['SeaDweller'] = love.graphics.newImage('graphics/SeaDweller.png'),
+    ['Vampire.png'] = love.graphics.newImage('graphics/Vampire.png')
 }
 
 gFrames = {
@@ -68,7 +71,10 @@ gFrames = {
     ['Christian'] = GenerateQuads(gTextures['Christian'], 32, 32),
     ['Bandit'] = GenerateQuads(gTextures['Bandit'], 32, 32),
     ['Swordsman'] = GenerateQuads(gTextures['Swordsman'], 32, 32),
-    ['TestingCube'] = GenerateQuads(gTextures['TestingCube'], 32, 32)
+    ['TestingCube'] = GenerateQuads(gTextures['TestingCube'], 32, 32),
+    ['Goblin'] = GenerateQuads(gTextures['Goblin'], 32, 32),
+    ['SeaDweller'] = GenerateQuads(gTextures['SeaDweller'], 32, 32),
+    ['Vampire'] = GenerateQuads(gTextures['Vampire'], 32, 32),
 }
 
 gFonts = {

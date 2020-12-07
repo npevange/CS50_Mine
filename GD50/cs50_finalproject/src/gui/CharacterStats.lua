@@ -15,8 +15,13 @@
 
 CharacterStats = Class{}
 
-function CharacterStats:init(def)
-    self.items = def.items
+function CharacterStats:init(def, referenceGroup, referenceUnit)
+    self.referenceGroup = referenceGroup
+    self.referenceUnit = referenceUnit
+    self.items = {{text = string.format(self.referenceUnit.name)},
+    {text = string.format("HP: " .. self.referenceUnit.currentHP)},
+    {text = string.format("Attack: " .. self.referenceUnit.Attack)},
+    {text = string.format("Defense: " .. self.referenceUnit.Defense)}}
     self.x = def.x
     self.y = def.y
 
@@ -30,31 +35,16 @@ function CharacterStats:init(def)
     self.selectionOn = def.selectionOn
 end
 
-function CharacterStats:update(dt)
-    -- if love.keyboard.wasPressed('up') then
-    --     if self.currentSelection == 1 then
-    --         self.currentSelection = #self.items
-    --     else
-    --         self.currentSelection = self.currentSelection - 1
-    --     end
-        
-    --     gSounds['blip']:stop()
-    --     gSounds['blip']:play()
-    -- elseif love.keyboard.wasPressed('down') then
-    --     if self.currentSelection == #self.items then
-    --         self.currentSelection = 1
-    --     else
-    --         self.currentSelection = self.currentSelection + 1
-    --     end
-        
-    --     gSounds['blip']:stop()
-    --     gSounds['blip']:play()
-    -- elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('space') then
-        -- self.items[self.currentSelection].onSelect()
-        
-        -- gSounds['blip']:stop()
-        -- gSounds['blip']:play()
-    -- end
+function CharacterStats:update(dt, x, y)
+    for i, units in pairs(self.referenceGroup) do
+        if self.referenceGroup[i].x == x and self.referenceGroup[i].y == y then
+            self.referenceUnit = self.referenceGroup[i]
+        end
+    end
+    self.items = {{text = string.format(self.referenceUnit.name)},
+    {text = string.format("HP: " .. self.referenceUnit.currentHP)},
+    {text = string.format("Attack: " .. self.referenceUnit.Attack)},
+    {text = string.format("Defense: " .. self.referenceUnit.Defense)}}
 end
 
 function CharacterStats:render()
