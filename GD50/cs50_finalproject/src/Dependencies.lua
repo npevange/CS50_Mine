@@ -62,7 +62,7 @@ gTextures = {
     ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
     ['Goblin'] = love.graphics.newImage('graphics/Goblin.png'),
     ['SeaDweller'] = love.graphics.newImage('graphics/SeaDweller.png'),
-    ['Vampire.png'] = love.graphics.newImage('graphics/Vampire.png')
+    ['Vampire'] = love.graphics.newImage('graphics/Vampire.png')
 }
 
 gFrames = {
