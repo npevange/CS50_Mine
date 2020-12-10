@@ -85,7 +85,7 @@ function NewGameState:enter()
     self.characterheroMenu = CharacterMenu {
         x = VIRTUAL_WIDTH - 128,
         y = 0,
-        width = 64,
+        width = 128,
         height = 96,
         group = self.levelStage.entities,
         selectionOn = false}
