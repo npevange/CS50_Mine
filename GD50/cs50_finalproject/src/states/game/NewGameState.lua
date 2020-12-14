@@ -145,18 +145,18 @@ function NewGameState:update(dt)
         -- Opponents take turns
         for i, enemy in pairs(self.levelStage.enemies) do
             --Enemy Turn action, move and attack.
-            -- love.window.setTitle(string.format("Enemy current locs"))
-            self.currentLocations = CurrentLocations(self.levelStage)
-            -- love.window.setTitle(string.format("Enemy Turn"))
-            EnemyTurn(enemy, self.levelStage, i)
-            -- love.window.setTitle(string.format("Enemy Check current locs"))
+
             self.currentLocations = CurrentLocations(self.levelStage)
             self.levelStage.currentLocations = self.currentLocations
-            -- love.window.setTitle(string.format("Enemy checked current locs"))
+
+            EnemyTurn(enemy, self.levelStage, i)
+
+            self.currentLocations = CurrentLocations(self.levelStage)
+            self.levelStage.currentLocations = self.currentLocations
+
             if #self.levelStage.entities == 0 then
-                -- You Lose, Sadge
-                love.window.setTitle(string.format('you lose'))
                 gStateMachine:change('mainmenu')
+                break
             end
         end
 
