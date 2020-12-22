@@ -7,27 +7,45 @@ Event = require 'lib/knife.event'
 push = require 'lib/push'
 Timer = require 'lib/knife.timer'
 
+require "src/AdjustMove"
+require "src/CheckMove"
+require "src/CheckRange"
+require "src/CombatCalculator"
 require "src/constants"
+require "src/CurrentLocations"
 require "src/Enemy_defs"
+require "src/EnemyTurn"
+require "src/FindClosestHero"
 require "src/GameLevel"
+require "src/GetUnitDef"
 require "src/Hero_defs"
+require "src/HighlightedTile"
 require "src/LevelGenerator"
+require "src/Locations"
 require "src/Party"
+require "src/PartyHeal"
+require "src/Sleep"
+require "src/StateMachine"
 require "src/Terrain_defs"
 require "src/Tile"
 require "src/TileMap"
+require "src/ToZero"
 require "src/Unit"
 require "src/Util"
 
 require "src/states/BaseState"
 require "src/states/StateStack"
 
-require "src/states/game/MainMenu"
-require "src/states/game/SaveMenu"
+require "src/states/game/Controls"
 require "src/states/game/FadeInState"
-require "src/states/game/NewGameState"
 require "src/states/game/Level"
+require "src/states/game/MainMenu"
+require "src/states/game/NewGameState"
+require "src/states/game/PlayState"
+require "src/states/game/SaveMenu"
 
+require "src/gui/CharacterMenu"
+require "src/gui/CharacterStats"
 require "src/gui/Menu"
 require "src/gui/Panel"
 require "src/gui/ProgressBar"
@@ -40,7 +58,11 @@ gTextures = {
     ['Christian'] = love.graphics.newImage('graphics/Christian.png'),
     ['Bandit'] = love.graphics.newImage('graphics/Bandit.png'),
     ['Swordsman'] = love.graphics.newImage('graphics/Swordsman.png'),
-    ['cursor'] = love.graphics.newImage('graphics/cursor.png')
+    ['TestingCube'] = love.graphics.newImage('graphics/TestingCube.png'),
+    ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
+    ['Goblin'] = love.graphics.newImage('graphics/Goblin.png'),
+    ['SeaDweller'] = love.graphics.newImage('graphics/SeaDweller.png'),
+    ['Vampire'] = love.graphics.newImage('graphics/Vampire.png')
 }
 
 gFrames = {
@@ -49,6 +71,10 @@ gFrames = {
     ['Christian'] = GenerateQuads(gTextures['Christian'], 32, 32),
     ['Bandit'] = GenerateQuads(gTextures['Bandit'], 32, 32),
     ['Swordsman'] = GenerateQuads(gTextures['Swordsman'], 32, 32),
+    ['TestingCube'] = GenerateQuads(gTextures['TestingCube'], 32, 32),
+    ['Goblin'] = GenerateQuads(gTextures['Goblin'], 32, 32),
+    ['SeaDweller'] = GenerateQuads(gTextures['SeaDweller'], 32, 32),
+    ['Vampire'] = GenerateQuads(gTextures['Vampire'], 32, 32),
 }
 
 gFonts = {

@@ -11,78 +11,60 @@ Party = Class{}
 
 function Party:init()
     self.partyMembers = {}
+    local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 1)
+    
+    self.Andrew = Unit{
+        name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level
+    }
+    -- love.window.setTitle(string.format(self.Andrew.level))
+    --    name = 'Andrew',
+    --    sprite = 'Andrew',
+    --    HPbase = 10,
+    --    Attackbase = 3,
+    --    Defensebase = 5,
+    --    Speedbase = 4,
+    --    Move = 3,
+    --    HPIV = 4,
+    --    AttackIV = 2,
+    --    DefenseIV = 3,
+    --    SpeedIV = 2,
+    --    level = 1
+    -- }
 
-    -- for i = 1, #HERO_IDS do
-    --     name = HERO_IDS[i]
-    --     --def = Unit.getDef(HERO_DEFS, HERO_IDS, name)
-    --     unit = Unit:init({
-    --     --HERO_DEFS[HERO_IDS[i]]
-    --     name = HERO_DEFS[name].name,
-    --     sprite = HERO_DEFS[name].sprite,
-    --     HPbase = HERO_DEFS[name].HPbase,
-    --     Attackbase = HERO_DEFS[name].Attackbase,
-    --     Defensebase = HERO_DEFS[name].Defensebase,
-    --     Speedbase = HERO_DEFS[name].Speedbase,
-    --     Move = HERO_DEFS[name].Move,
-    --     HPIV = HERO_DEFS[name].HPIV,
-    --     AttackIV = HERO_DEFS[name].AttackIV,
-    --     DefenseIV = HERO_DEFS[name].DefenseIV,
-    --     SpeedIV = HERO_DEFS[name].SpeedIV,
-    --     level = HERO_DEFS[name].level
-    --     })
-    --     unit.sprite = HERO_DEFS[HERO_IDS[i]].sprite
-    --     table.insert(self.partyMembers, unit)
-    -- end
+    -- self.Andrew.name = 'Andrew'
+    -- self.Andrew.sprite = 'Andrew'
+    -- self.Andrew.HPbase = 10
+    -- self.Andrew.Attackbase = 3
+    -- self.Andrew.Defensebase = 5
+    -- self.Andrew.Speedbase = 4
+    -- self.Andrew.Move = 3
+    -- self.Andrew.HPIV = 4
+    -- self.Andrew.AttackIV = 2
+    -- self.Andrew.DefenseIV = 3
+    -- self.Andrew.SpeedIV = 2
+    -- self.Andrew.level = 1
 
-    self.Andrew = Unit({
-        HERO_DEFS['Andrew']
-    }, 1)
+    name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 2)
+    self.Christian = Unit{
+        name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level
+    }
 
-    self.Andrew.x = 1
-    self.Andrew.y = 1
-    self.Andrew.sprite = 'Andrew'
-    self.Christian = Unit({
-        HERO_DEFS['Christian']
-    }, 1)
-    self.Christian.x = 2
-    self.Christian.y = 2
-    self.Christian.sprite = 'Christian'
-
+    -- self.Christian.x = 2
+    -- self.Christian.y = 2
+    -- self.Christian.name = 'Christian'
+    -- self.Christian.sprite = 'Christian'
+    -- self.Christian.HPbase = 8
+    -- self.Christian.Attackbase = 4
+    -- self.Christian.Defensebase = 2
+    -- self.Christian.Speedbase = 6
+    -- self.Christian.Move = 3
+    -- self.Christian.HPIV = 3
+    -- self.Christian.AttackIV = 5
+    -- self.Christian.DefenseIV = 3
+    -- self.Christian. SpeedIV = 3
+    -- self.Christian.level = 1
     
     self.partyMembers = {self.Andrew, self.Christian}
 
-    -- --test 1
-    -- self.test = Unit({
-    --     HERO_DEFS['Christian']
-    -- }, 1)
-    -- table.insert(self.partyMembers, self.test)
-
-    -- -- test 2
-    -- self.test = Unit({
-    --     HERO_DEFS['Christian']
-    -- }, 1)
-    -- table.insert(self.partyMembers, self.test)
-
-    -- test sprite ? --error
-    if #self.partyMembers == 2 then
-        self.test = Unit({
-            HERO_DEFS['Christian']
-        }, 1)
-        self.test.sprite = 'Bandit'
-        self.test.x = 3
-        self.test.y = 3
-        table.insert(self.partyMembers, self.test)
-    end
-
     return self.partyMembers
 end
-
-function Party:heal()
-    for i, hero in pairs(self.partyMembers) do
-        hero.currentHP = hero.HP
-    end
-end
-
--- function Party:render()
-
--- end

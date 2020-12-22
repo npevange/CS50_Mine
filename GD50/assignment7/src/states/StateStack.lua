@@ -14,6 +14,7 @@ end
 
 function StateStack:update(dt)
     self.states[#self.states]:update(dt)
+    love.window.setTitle(string.format(#self.states))
 end
 
 function StateStack:processAI(params, dt)

@@ -7,13 +7,13 @@
 ]]
 
 ENEMY_IDS = {
-    'bandit', 'swordsman'
+    'Bandit', 'Swordsman', 'TestingCube'
 }
 
 ENEMY_DEFS = {
-    ['bandit'] = {
-        name = 'bandit',
-        sprite = 'bandit.png',
+    ['Bandit'] = {
+        name = 'Bandit',
+        sprite = 'Bandit',
         HPbase = 8,
         Attackbase = 5,
         Defensebase = 2,
@@ -26,9 +26,23 @@ ENEMY_DEFS = {
         AI = 'aggro'
 
     },
-    ['swordsman'] = {
-        name = 'swordsman',
-        sprite = 'swordsman.png',
+    ['Swordsman'] = {
+        name = 'Swordsman',
+        sprite = 'Swordsman',
+        HPbase = 7,
+        Attackbase = 5,
+        Defensebase = 2,
+        Speedbase = 3,
+        Move = 3,
+        HPIV = 2,
+        AttackIV = 3,
+        DefenseIV = 1,
+        SpeedIV = 4,
+        AI = 'aggro'
+    },
+    ['TestingCube'] = {
+        name = 'TestingCube',
+        sprite = 'TestingCube',
         HPbase = 7,
         Attackbase = 5,
         Defensebase = 2,

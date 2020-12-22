@@ -13,15 +13,17 @@ function Unit:init(def)
     self.y = 0
     self.name = def.name
     self.sprite = def.sprite
-    self.Turntaken = false
+    self.turnTaken = false
+    self.moveTaken = false
+    self.actionTaken = false
     self.AI = def.AI or nil
-
 
     self.HPbase = def.HPbase
     self.Attackbase = def.Attackbase
     self.Defensebase = def.Defensebase
     self.Speedbase = def.Speedbase
     self.Move = def.Move
+    self.Range = 1
 
     self.HPIV = def.HPIV
     self.AttackIV = def.AttackIV
@@ -33,21 +35,21 @@ function Unit:init(def)
     self.Defense = self.Defensebase
     self.Speed = self.Speedbase
 
-    self.level = def.level
+    self.level = tonumber(def.level)
 
     self.currentEXP = 0
     self.EXPtoLevel = 100
-
-    self:calculateStats()
+    
+    self:calculateStats(self)
 
     self.currentHP = self.HP
 end
 
-function Unit:calculateStats()
+function Unit:calculateStats(self)
     --if self.level ~= nil then
         if self.level ~= nil and self.level > 0 then
             for i = 1, self.level do
-                Unit:statsLevelUp()
+                Unit:statsLevelUp(self)
             end
         end
     --end
@@ -66,7 +68,7 @@ end
     higher IVs will on average give higher stat increases per level. Returns all of
     the increases so they can be displayed in the TakeTurnState on level up.
 ]]
-function Unit:statsLevelUp()
+function Unit:statsLevelUp(self)
     local HPIncrease = 0
 
     for j = 1, 3 do
@@ -106,20 +108,14 @@ function Unit:statsLevelUp()
     return HPIncrease, attackIncrease, defenseIncrease, speedIncrease
 end
 
-function Unit.getDef(DEFS, IDS, Unit)
-    return DEFS[IDS[Unit]]
-end
-
 function Unit:render()
-    -- love.graphics.draw(gTextures['Andrew'], gFrames['Andrew'][1],
-    --     (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
-
-    love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
-        (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
-
-    if self.Move == 3 then
-        love.graphics.setColor(190, 0, 0, 255)
-        love.graphics.setFont(gFonts['large'])
-        love.graphics.printf('Test', 0, VIRTUAL_HEIGHT / 2 - 72, VIRTUAL_WIDTH, 'center')
+    if self.turnTaken == true then
+        love.graphics.setColor(100, 100, 100, 255)
+        love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
+            (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+    else
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
+            (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
     end
 end

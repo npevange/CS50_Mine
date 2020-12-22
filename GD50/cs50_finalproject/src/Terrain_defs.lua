@@ -6,24 +6,23 @@
     npevangelista@ucdavis.edu
 ]]
 
+function TerrainDef(Tile_ID)
+    local hitmod, defmod
+
+    hitmod = TERRAIN_HITMODS[Tile_ID]
+    defmod = TERRAIN_DEFMODS[Tile_ID]
+
+
+    return hitmod, defmod
+end
+
 TERRAIN_IDS = {
     'grass', 'tree', 'lake'
 }
 
-TERRAIN_DEFS = {
-    ['grass'] = {
-        name = 'grass',
-        hitmod = 0,
-        defmod = 0
-    },
-    ['tree'] = {
-        name = 'tree',
-        hitmod = -15,
-        defmod = 2
-    },
-    ['lake'] = {
-        name = 'lake',
-        hitmod = -10,
-        defmod = 1
-    }
-}
+TERRAIN_HITMODS = {
+    0, -15, -10}
+
+
+TERRAIN_DEFMODS = {
+    0, 1, 2}
