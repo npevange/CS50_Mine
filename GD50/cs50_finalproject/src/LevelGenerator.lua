@@ -49,7 +49,7 @@ function LevelGenerator.generate(width, height, levelNum)
     end
 
     -- Enemy Generation
-    local numEnemies = 4 --math.random(2,3)
+    local numEnemies = math.random(2,3)
     local unitsPlaced = 0
     local row = 0
     local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI

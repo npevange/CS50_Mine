@@ -55,12 +55,6 @@ function NewGameState:enter()
                 end
             },
             {
-                text = 'Magic',
-                onSelect = function ()
-                    
-                end
-            },
-            {
                 text = 'Wait',
                 onSelect = function ()
                     self.currentUnit.turnTaken = true
@@ -81,22 +75,6 @@ function NewGameState:enter()
         }
     }
     NewGameState:level(self)
-
-    self.characterheroMenu = CharacterMenu {
-        x = VIRTUAL_WIDTH - 128,
-        y = 0,
-        width = 128,
-        height = 96,
-        group = self.levelStage.entities,
-        selectionOn = false}
-
-    self.characterenemyMenu = CharacterMenu {
-        x = VIRTUAL_WIDTH - 128,
-        y = 0,
-        width = 128,
-        height = 96,
-        group = self.levelStage.enemies,
-        selectionOn = false}
 end
 
 function NewGameState:level(self)
@@ -115,6 +93,22 @@ function NewGameState:level(self)
 
     self.currentLocations = CurrentLocations(self.levelStage)
     self.levelStage.currentLocations = self.currentLocations
+
+    self.characterheroMenu = CharacterMenu {
+        x = VIRTUAL_WIDTH - 128,
+        y = 0,
+        width = 128,
+        height = 96,
+        group = self.levelStage.entities,
+        selectionOn = false}
+
+    self.characterenemyMenu = CharacterMenu {
+        x = VIRTUAL_WIDTH - 128,
+        y = 0,
+        width = 128,
+        height = 96,
+        group = self.levelStage.enemies,
+        selectionOn = false}
 end
 
 function NewGameState:update(dt)
@@ -122,8 +116,10 @@ function NewGameState:update(dt)
     -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles)) -- Y
     if #self.levelStage.enemies == 0 then
         -- You Win
-        love.window.setTitle(string.format('you win'))
         PartyHeal(self.party)
+        for i, hero in pairs(self.party) do
+            hero:statsLevelUp(self.party[i])
+        end
         self:level(self)
     end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
@@ -222,9 +218,9 @@ function NewGameState:update(dt)
                                 self.currentDefenderIndex = i
                             end
                         end
+                        
                         -- attack stuff goes here, check for enemy in the tile, calculate damage, etc.
                         local deadUnit = false
-                        love.window.setTitle(string.format("Combat"))
                         deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage)
                         -- if dead units, remove from levelStage
                         if deadUnit == true then
@@ -234,16 +230,12 @@ function NewGameState:update(dt)
                             if self.currentDefender.currentHP < 1 then
                                 table.remove(self.levelStage.enemies, self.currentDefenderIndex)
                             end
-                            -- love.window.setTitle(string.format("Check current locs"))
+
                             self.currentLocations = CurrentLocations(self.levelStage)
                             self.levelStage.currentLocations = self.currentLocations
-                            -- love.window.setTitle(string.format("Checked current locs"))
+
                         end
 
-                        -- check that there are still heroes and enemies left
-                        if #self.levelStage.enemies == 0 then
-                            love.window.setTitle(string.format("You Win"))
-                        end
                         self.currentUnit.actionTaken = true
                         self.currentUnit.turnTaken = true
                         self.commandAttackBool = false

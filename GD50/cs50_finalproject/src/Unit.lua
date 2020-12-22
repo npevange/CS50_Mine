@@ -109,7 +109,13 @@ function Unit:statsLevelUp(self)
 end
 
 function Unit:render()
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
-        (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+    if self.turnTaken == true then
+        love.graphics.setColor(100, 100, 100, 255)
+        love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
+            (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+    else
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(gTextures[self.sprite], gFrames[self.sprite][1],
+            (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+    end
 end

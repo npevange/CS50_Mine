@@ -12,6 +12,8 @@ function EnemyTurn(enemy, levelStage, index)
         FindClosestHero(enemy, levelStage, index)
         -- love.window.setTitle(string.format("Found Closest Enemy"))
 
+    elseif enemy.AI == 'astar' then
+        -- A_Star(enemy, levelStage, index)
     
     elseif enemy.AI == "safe" then
         --safe
