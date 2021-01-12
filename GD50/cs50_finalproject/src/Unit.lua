@@ -17,6 +17,8 @@ function Unit:init(def)
     self.moveTaken = false
     self.actionTaken = false
     self.AI = def.AI or nil
+    self.Kills = 0
+    self.Blessing = def.Blessing or nil
 
     self.HPbase = def.HPbase
     self.Attackbase = def.Attackbase

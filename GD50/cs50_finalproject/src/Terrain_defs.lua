@@ -17,12 +17,12 @@ function TerrainDef(Tile_ID)
 end
 
 TERRAIN_IDS = {
-    'grass', 'tree', 'lake'
+    'grass', 'tree', 'lake', 'castle', 'house'
 }
 
 TERRAIN_HITMODS = {
-    0, -15, -10}
+    0, -5, 5, -10, -5}
 
 
 TERRAIN_DEFMODS = {
-    0, 1, 2}
+    0, 1, -1, 2, 1}

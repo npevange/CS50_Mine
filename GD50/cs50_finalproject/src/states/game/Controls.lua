@@ -17,13 +17,19 @@ function Controls:enter()
         selectionOn = true,
         items = {
             {
-                text = 'Arrow keys to move the cursor,',
+                text = 'Arrow keys to move the cursor',
                 onSelect = function ()
                     gStateMachine:change('mainmenu')
                 end
             },
             {
-                text = 'Space bar to select',
+                text = 'Space bar to select and clear texts',
+                onSelect = function ()
+                    gStateMachine:change('mainmenu')
+                end
+            },
+            {
+                text = 'M to open the menu, if no unit selected',
                 onSelect = function ()
                     gStateMachine:change('mainmenu')
                 end

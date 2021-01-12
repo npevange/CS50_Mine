@@ -6,46 +6,48 @@
     npevangelista@ucdavis.edu
 ]]
 
-MainMenu = Class{__includes = BaseState}
+GameMenu = Class{__includes = BaseState}
 
-function MainMenu:enter()
-    self.mainMenu = Menu {  
+function GameMenu:enter()
+    local state1 = 1
+    local state2 = 2
+    local state3 = 3
+    self.mainMenu = Menu {
         x = VIRTUAL_WIDTH / 2 - 32,
         y = VIRTUAL_HEIGHT / 2 - 16,
         width = 64,
         height = 80,
         selectionOn = true,
-        items = {
+        items = { --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
             {
-                text = 'New Game Menu',
+                text = 'Save State 1',
                 onSelect = function ()
                     party = Party:init()
                     gStateMachine:change('textstate', {'Adventure awaits, go forth and conquer', 'gamestate', {party, nil, nil, nil, 1}})
                 end
             },
-            {   text = 'Load Game Menu',
+            {   text = 'Save State 2',
                 onSelect = function()
-                    name = '1'
-                    data = tostring(love.filesystem.getSaveDirectory( ) .. '/' .. name) --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
-                    success, message = love.filesystem.load(data)
-                    love.window.setTitle(message)
+                    party = Party:init()
+                    gStateMachine:change('textstate', {'Adventure awaits, go forth and conquer', 'gamestate', {party, nil, nil, nil, 2}})
                 end
             },
             {
-                text = 'Controls',
+                text = 'Save State 3',
                 onSelect = function ()
-                    gStateMachine:change('control')
+                    party = Party:init()
+                    gStateMachine:change('textstate', {'Adventure awaits, go forth and conquer', 'gamestate', {party, nil, nil, nil, 3}})
                 end
             }
         }
     }
 end
 
-function MainMenu:update(dt)
+function GameMenu:update(dt)
     self.mainMenu:update(dt)
 end
 
-function MainMenu:render()
+function GameMenu:render()
     love.graphics.clear(188, 188, 188, 255)
     love.graphics.setColor(190, 0, 0, 255)
     love.graphics.setFont(gFonts['large'])

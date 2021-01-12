@@ -29,7 +29,6 @@ function FindClosestHero(enemy, levelStage, index)
 
     -- Vertical
     if relativeX == 0 then
-        love.window.setTitle(string.format("Vert".. index))
         moveX = 0
         moveY = enemy.Move
         -- Movement
@@ -42,7 +41,6 @@ function FindClosestHero(enemy, levelStage, index)
 
     -- Horizontal
     elseif relativeY == 0 then
-        love.window.setTitle(string.format("Horiz" .. index))
         moveX = enemy.Move
         moveY = 0
         if math.abs(relativeX) < (enemy.Move + enemy.Range) then
@@ -55,7 +53,6 @@ function FindClosestHero(enemy, levelStage, index)
     -- Triangles
     else
         -- Triangle math
-        love.window.setTitle(string.format("Triangle Math" .. index))
         local hypotenuse = math.sqrt((relativeX ^ 2) + (relativeY ^ 2))
         moveX = (relativeX * enemy.Move) / hypotenuse
         moveY = (relativeY * enemy.Move) / hypotenuse
@@ -86,7 +83,6 @@ function FindClosestHero(enemy, levelStage, index)
     enemy.y = enemy.y + moveY
     checkRange = CheckRange(enemy, levelStage.entities[closestHeroIndex])
     if checkRange == true then
-        love.window.setTitle(string.format("Tri Combat" .. index))
         deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage)
         if deadUnit == true then
             if enemy.currentHP < 1 then

@@ -21,7 +21,8 @@ function CharacterStats:init(def, referenceGroup, referenceUnit)
     self.items = {{text = string.format(self.referenceUnit.name)},
     {text = string.format("HP: " .. self.referenceUnit.currentHP)},
     {text = string.format("Attack: " .. self.referenceUnit.Attack)},
-    {text = string.format("Defense: " .. self.referenceUnit.Defense)}}
+    {text = string.format("Defense: " .. self.referenceUnit.Defense)},
+    {text = string.format("Speed: " .. self.referenceUnit.Speed)}}
     self.x = def.x
     self.y = def.y
 
@@ -44,7 +45,8 @@ function CharacterStats:update(dt, x, y)
     self.items = {{text = string.format(self.referenceUnit.name)},
     {text = string.format("HP: " .. self.referenceUnit.currentHP)},
     {text = string.format("Attack: " .. self.referenceUnit.Attack)},
-    {text = string.format("Defense: " .. self.referenceUnit.Defense)}}
+    {text = string.format("Defense: " .. self.referenceUnit.Defense)},
+    {text = string.format("Speed: " .. self.referenceUnit.Speed)}}
 end
 
 function CharacterStats:render()

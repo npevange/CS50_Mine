@@ -19,19 +19,15 @@ function love.load()
         resizable = true
     })
 
-    -- this time, we are using a stack for all of our states, where the field state is the
-    -- foundational state; it will have its behavior preserved between state changes because
-    -- it is essentially being placed "behind" other running states as needed (like the battle
-    -- state)
-
     gStateMachine = StateMachine {
         ['mainmenu'] = function() return MainMenu() end,
         ['control'] = function() return Controls() end,
-        ['newgamestate'] = function() return NewGameState() end,
+        ['gamestate'] = function() return GameState() end,
         ['level'] = function() return Level() end,
-        ['playstate'] = function() return PlayState() end
+        ['playstate'] = function() return PlayState() end,
+        ['textstate'] = function() return TextPage() end
     }
-    gStateMachine:change('mainmenu')
+    gStateMachine:change('textstate', {'"Of all creatures that breathe and move upon the earth, nothing is bred that is weaker than man" --Homer, The Odyssey' .. '\n' .. 'Press Space to Embark', 'mainmenu'})
 
     love.keyboard.keysPressed = {}
 end

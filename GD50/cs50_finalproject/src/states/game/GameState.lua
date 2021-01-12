@@ -7,33 +7,42 @@
 ]]
 
 
-NewGameState = Class{__includes = BaseState}
+GameState = Class{__includes = BaseState}
 
-function NewGameState:enter()
+function GameState:enter(enterParams) --party, levelNum, bossNum
     -- init party
-    self.party = Party:init()
-    --init level
-    self.levelNum = 0
+    self.party = enterParams[1] or Party:init()
+    -- init level
+    self.levelNum = enterParams[2] or 0
+    self.BossNum = enterParams[3] or 0
+    self.BossLevel = enterParams[4] or false
+    self.SaveState = enterParams[5]
 
+    -- Control unit selector
     self.selectedUnit = false
     self.currentUnit = nil
     self.currentUnitIndex = nil
     self.currentDefender = nil
     self.currentDefenderIndex = nil
 
+    -- Control command menu
     self.commandMenuBool = false
     self.commandAttackBool = false
     self.commandMoveBool = false
     self.commandMagicBool = false
     
+    -- Options menus
+    self.optionsMenuBool = false
+
     self.EndTurn = false
     self.EndTurnCounter = 0
 
+    -- Command Menu options
     self.commandsMenu = Menu {
         x = VIRTUAL_WIDTH - 64,
-        y = VIRTUAL_HEIGHT - 96,
+        y = VIRTUAL_HEIGHT - 80,
         width = 64,
-        height = 96,
+        height = 80,
         selectionOn = true,
         items = {
             {
@@ -74,14 +83,53 @@ function NewGameState:enter()
             }
         }
     }
-    NewGameState:level(self)
+
+    self.optionsMenu = Menu {
+        x = VIRTUAL_WIDTH - 64,
+        y = VIRTUAL_HEIGHT - 80,
+        width = 64,
+        height = 80,
+        selectionOn = true,
+        items = {
+            {
+                text = 'Save Game',
+                onSelect = function ()
+                    name = tostring(self.SaveState .. '.txt')
+                    data = "love.window.setTitle('Odyssey Quest 2: Electric Boogaloo')"
+                    --data = tostring(SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState)) --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
+                    success, message = love.filesystem.write( name, data)
+                end
+            },
+            {
+                text = 'Load Game',
+                onSelect = function ()
+                    local f, error = loadfile(love.filesystem.getSaveDirectory( ).."/1.txt")
+                    f()
+                end
+            },
+            {
+                text = 'Quit',
+                onSelect = function ()
+                    --Quit Menu
+                end
+            },
+            {
+                text = 'Cancel',
+                onSelect = function ()
+                    self.optionsMenuBool = false
+                end
+            },
+        }
+    }
+    GameState:level(self)
 end
 
-function NewGameState:level(self)
-    self.levelx = 8-- math.random(6,8) --#self.levelStage.tileMap.tiles[1]
-    self.levely = 5-- math.random(4,5) --#self.levelStage.tileMap.tiles
+-- Call to set level
+function GameState:level(self)
+    self.levelx = 8 --math.random(6,8) --#self.levelStage.tileMap.tiles[1]
+    self.levely = 5 --math.random(4,5) --#self.levelStage.tileMap.tiles
     self.levelNum = self.levelNum + 1
-    self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum) --Game Level entities, objects, tiles
+    self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum, self.BossNum, self.BossLevel) --Game Level entities, objects, tiles
     
     for i, heroes in pairs(self.party) do
         table.insert(self.levelStage.entities, self.party[i])
@@ -94,33 +142,43 @@ function NewGameState:level(self)
     self.currentLocations = CurrentLocations(self.levelStage)
     self.levelStage.currentLocations = self.currentLocations
 
+    -- Hero stats menu
     self.characterheroMenu = CharacterMenu {
         x = VIRTUAL_WIDTH - 128,
         y = 0,
         width = 128,
-        height = 96,
+        height = 136,
         group = self.levelStage.entities,
         selectionOn = false}
 
+    -- Enemy stats menu
     self.characterenemyMenu = CharacterMenu {
         x = VIRTUAL_WIDTH - 128,
         y = 0,
         width = 128,
-        height = 96,
+        height = 136,
         group = self.levelStage.enemies,
         selectionOn = false}
 end
 
-function NewGameState:update(dt)
-    -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles[1])) -- X
-    -- love.window.setTitle(tostring(#self.levelStage.tileMap.tiles)) -- Y
+function GameState:update(dt)
     if #self.levelStage.enemies == 0 then
         -- You Win
         PartyHeal(self.party)
         for i, hero in pairs(self.party) do
             hero:statsLevelUp(self.party[i])
         end
-        self:level(self)
+        if (self.levelNum + 1) % 2 == 0 then
+            self.BossNum = self.BossNum + 1
+            self.BossLevel = true
+            gStateMachine:change('textstate', {gBossQuotes[self.BossNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
+        elseif self.levelNum % 2 == 0 then
+            self.BossLevel = false
+            gStateMachine:change('textstate', {gQuotes[math.random(1,#gQuotes)] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
+        else    
+            self.BossLevel = false
+            self:level(self)
+        end
     end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
     self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
@@ -166,7 +224,7 @@ function NewGameState:update(dt)
         self.levelStage.currentLocations = self.currentLocations
         self.EndTurn = false
     end
-    if self.commandMenuBool == false then
+    if self.commandMenuBool == false and self.optionsMenuBool == false then
         -- move cursor around based on bounds of grid
         if love.keyboard.wasPressed('up') then
             self.highlightedTile.y = math.max(1, self.highlightedTile.y - 1)
@@ -179,6 +237,8 @@ function NewGameState:update(dt)
 
         elseif love.keyboard.wasPressed('right') then
             self.highlightedTile.x = math.min(self.levelx, self.highlightedTile.x + 1)
+        elseif love.keyboard.wasPressed('m') then
+            self.optionsMenuBool = true
         elseif love.keyboard.wasPressed('space') then
             
             --Command Menu if selecting a hero
@@ -228,6 +288,7 @@ function NewGameState:update(dt)
                                 table.remove(self.levelStage.entities, self.currentUnitIndex)
                             end
                             if self.currentDefender.currentHP < 1 then
+                                self.currentUnit.Kills = self.currentUnit.Kills + 1
                                 table.remove(self.levelStage.enemies, self.currentDefenderIndex)
                             end
 
@@ -248,11 +309,15 @@ function NewGameState:update(dt)
             end
         end
     else
-        self.commandsMenu:update(dt)
+        if self.commandMenuBool == true then
+            self.commandsMenu:update(dt)
+        elseif self.optionsMenuBool == true then
+            self.optionsMenu:update(dt)
+        end
     end
 end
  
-function NewGameState:render(dt)
+function GameState:render(dt)
     if self.currentLocations.entities[self.highlightedTile.y][self.highlightedTile.x] == true then
         self.characterheroMenu:render()
     elseif self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.x] == true then
@@ -263,6 +328,8 @@ function NewGameState:render(dt)
     
     if self.commandMenuBool == true then
         self.commandsMenu:render()
+    elseif self.optionsMenuBool == true then
+        self.optionsMenu:render()
     else
         if self.commandMoveBool == true then
             for y = 1, self.levely do
