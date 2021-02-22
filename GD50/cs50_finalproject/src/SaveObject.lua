@@ -6,8 +6,18 @@
     npevangelista@ucdavis.edu
 ]]
 
-SaveObject = Class{}
+function SaveObject(party, levelNum, BossNum, BossLevel, SaveState, type)
+    SaveData = {party, levelNum, BossNum, BossLevel, SaveState}
+    table = SaveTable(SaveData)
+    if type == 'load' then
+        returnTable = "LoadFunction(" .. table .. ")"
 
-function SaveObject:init(party, levelNum, BossNum, BossLevel, SaveState)
-    self.SaveData = {party, levelNum, BossNum, BossLevel, SaveState}
+        return returnTable
+    elseif type == 'level' then
+        returnTable = "GetSaveLevel(" .. table .. ")"
+        return returnTable
+    elseif type == 'test' then
+        returnTable = table
+        return returnTable
+    end
 end

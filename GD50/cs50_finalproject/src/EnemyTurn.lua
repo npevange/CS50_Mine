@@ -16,7 +16,7 @@ function EnemyTurn(enemy, levelStage, index)
     elseif enemy.AI == "safe" then
         --safe
     elseif enemy.AI == "boss" then
-        if enemy.currentHP < HP then
+        if enemy.currentHP < enemy.HP then
             FindClosestHero(enemy, levelStage, index)
         end
     end

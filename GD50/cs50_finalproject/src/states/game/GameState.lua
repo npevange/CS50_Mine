@@ -12,8 +12,9 @@ GameState = Class{__includes = BaseState}
 function GameState:enter(enterParams) --party, levelNum, bossNum
     -- init party
     self.party = enterParams[1] or Party:init()
+    PartyHeal(self.party)
     -- init level
-    self.levelNum = enterParams[2] or 0
+    self.levelNum = enterParams[2] or 1
     self.BossNum = enterParams[3] or 0
     self.BossLevel = enterParams[4] or false
     self.SaveState = enterParams[5]
@@ -92,19 +93,23 @@ function GameState:enter(enterParams) --party, levelNum, bossNum
         selectionOn = true,
         items = {
             {
-                text = 'Save Game',
+                text = 'Retreat (Save Game)',
                 onSelect = function ()
                     name = tostring(self.SaveState .. '.txt')
-                    data = "love.window.setTitle('Odyssey Quest 2: Electric Boogaloo')"
-                    --data = tostring(SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState)) --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
+                    data = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'load') --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
                     success, message = love.filesystem.write( name, data)
+
+                    nameLevel = tostring(self.SaveState .. 'Level.txt')
+                    dataLevel = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'level')
+                    success, message = love.filesystem.write( nameLevel, dataLevel)
                 end
             },
             {
-                text = 'Load Game',
+                text = 'Load Game (Options?)',
                 onSelect = function ()
-                    local f, error = loadfile(love.filesystem.getSaveDirectory( ).."/1.txt")
-                    f()
+                    test = love.filesystem.getSaveDirectory()
+                    fTest, error = loadfile(love.filesystem.getSaveDirectory( ).."/1.txt")
+                    fTest()
                 end
             },
             {
@@ -128,7 +133,8 @@ end
 function GameState:level(self)
     self.levelx = 8 --math.random(6,8) --#self.levelStage.tileMap.tiles[1]
     self.levely = 5 --math.random(4,5) --#self.levelStage.tileMap.tiles
-    self.levelNum = self.levelNum + 1
+    -- Check for loaded Level / enemies
+
     self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum, self.BossNum, self.BossLevel) --Game Level entities, objects, tiles
     
     for i, heroes in pairs(self.party) do
@@ -136,6 +142,7 @@ function GameState:level(self)
         self.levelStage.entities[i].x = 1
         self.levelStage.entities[i].y = i
     end
+
 
     self.highlightedTile = HighlightedTile(self.levelStage.entities[1].x, self.levelStage.entities[1].y)
 
@@ -164,17 +171,20 @@ end
 function GameState:update(dt)
     if #self.levelStage.enemies == 0 then
         -- You Win
+        self.levelNum = self.levelNum + 1
+        -- Party Management --lv6 gain Nick --
         PartyHeal(self.party)
         for i, hero in pairs(self.party) do
             hero:statsLevelUp(self.party[i])
         end
-        if (self.levelNum + 1) % 2 == 0 then
+        if self.levelNum % 5 == 0 then
             self.BossNum = self.BossNum + 1
             self.BossLevel = true
             gStateMachine:change('textstate', {gBossQuotes[self.BossNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
-        elseif self.levelNum % 2 == 0 then
+
+        elseif InList(gQuoteLevels, self.levelNum) == true then
             self.BossLevel = false
-            gStateMachine:change('textstate', {gQuotes[math.random(1,#gQuotes)] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
+            gStateMachine:change('textstate', {gQuotes[self.levelNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
         else    
             self.BossLevel = false
             self:level(self)
@@ -209,7 +219,7 @@ function GameState:update(dt)
             self.levelStage.currentLocations = self.currentLocations
 
             if #self.levelStage.entities == 0 then
-                gStateMachine:change('mainmenu')
+                gStateMachine:change('textstate', {gEndings[1], 'mainmenu'})
                 break
             end
         end

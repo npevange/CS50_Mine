@@ -11,7 +11,7 @@ TextPage = Class{__includes = BaseState}
 function TextPage:enter(inputs)
     self.textbox = Textbox(0,0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, inputs[1], gFonts['small'])
     self.nextstate = inputs[2]
-    self.enterparams = inputs[3]
+    self.enterparams = inputs[3] or nil
 end
 
 function TextPage:update(dt)

@@ -19,12 +19,12 @@ HERO_DEFS = {
         Defensebase = 5,
         Speedbase = 4,
         Move = 3,
-        HPIV = 4,
+        HPIV = 3,
         AttackIV = 2,
         DefenseIV = 3,
-        SpeedIV = 2,
-        level = 1
-
+        SpeedIV = 1,
+        level = 1,
+        heroNum = 1
     },
     ['Christian'] = {
         name = 'Christian',
@@ -35,10 +35,11 @@ HERO_DEFS = {
         Speedbase = 5,
         Move = 3,
         HPIV = 3,
-        AttackIV = 5,
-        DefenseIV = 3,
-        SpeedIV = 3,
-        level = 1
+        AttackIV = 4,
+        DefenseIV = 2,
+        SpeedIV = 2,
+        level = 1,
+        heroNum = 2
     },
     ['Nick'] = {
         name = 'Nick',
@@ -52,7 +53,8 @@ HERO_DEFS = {
         AttackIV = 5,
         DefenseIV = 3,
         SpeedIV = 3,
-        level = 1
+        level = 1,
+        heroNum = 3
     },
     ['Cameron'] = {
         name = 'Cameron',
@@ -66,6 +68,7 @@ HERO_DEFS = {
         AttackIV = 4,
         DefenseIV = 3,
         SpeedIV = 2,
-        level = 1
+        level = 1,
+        heroNum = 4
     }
 }

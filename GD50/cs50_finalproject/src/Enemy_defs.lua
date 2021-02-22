@@ -7,7 +7,7 @@
 ]]
 
 ENEMY_IDS = {
-    'Bandit', 'Swordsman', 'GelatinousCube', 'SeaDweller', 'Goblin'
+    'Bandit', 'Swordsman', 'Goblin', 'GelatinousCube', 'SeaDweller'
 }
 BOSS_IDS = {
     'Vampire', 'Leviathan', 'Golem', 'WereWolf'

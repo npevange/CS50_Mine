@@ -32,7 +32,7 @@ end
 function Textbox:nextChunks()
     local chunks = {}
 
-    for i = self.chunkCounter, self.chunkCounter + 2 do
+    for i = self.chunkCounter, self.chunkCounter + 11 do
         table.insert(chunks, self.textChunks[i])
 
         -- if we've reached the number of total chunks, we can return
@@ -42,7 +42,7 @@ function Textbox:nextChunks()
         end
     end
 
-    self.chunkCounter = self.chunkCounter + 3
+    self.chunkCounter = self.chunkCounter + 11
 
     return chunks
 end

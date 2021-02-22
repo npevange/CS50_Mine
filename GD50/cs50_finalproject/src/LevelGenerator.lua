@@ -42,10 +42,10 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
             end
         end
 
-        local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI
-        name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI = GetUnitDef(BOSS_DEFS, BOSS_IDS, BossNum)
+        local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, heroNum, AI
+        name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, _, AI = GetUnitDef(BOSS_DEFS, BOSS_IDS, BossNum)
         enemy = Unit{
-            name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = levelNum, AI = AI
+            name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level, AI = AI
         }
         table.insert(enemies, enemy)
 
@@ -80,16 +80,35 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
         end
 
         -- Enemy Generation
-        local numEnemies = math.random(2,3)
+        if levelNum > 20 then
+            numEnemies = math.random(2,3)
+
+        elseif levelNum > 15 then
+            numEnemies = math.random(2,3)
+
+        elseif levelNum > 10 then
+            numEnemies = math.random(2,3)
+
+        elseif levelNum > 5 then
+            numEnemies = math.random(2,3)
+            first = 1
+            last = 3
+            
+        else -- levelNum < 5
+            numEnemies = math.random(2,3)
+            first = 1
+            last = 2
+        end
+        
         local unitsPlaced = 0
         local row = 0
         local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI
 
         if numEnemies <= height then
             for x = 1, numEnemies do
-                name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI = GetUnitDef(ENEMY_DEFS, ENEMY_IDS, math.random(1,#ENEMY_IDS))
+                name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, _, AI = GetUnitDef(ENEMY_DEFS, ENEMY_IDS, math.random(first,last))
                 enemy = Unit{
-                    name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = levelNum, AI = AI
+                    name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level, AI = AI
                 }
                 table.insert(enemies, enemy)
 

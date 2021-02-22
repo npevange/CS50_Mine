@@ -6,6 +6,8 @@
     npevangelista@ucdavis.edu
 ]]
 
+sPath = love.filesystem.getSaveDirectory()
+love.filesystem.setRequirePath("?.lua;?/init.lua;" .. sPath .. "/?")
 require 'src/Dependencies'
 
 function love.load()
@@ -23,6 +25,7 @@ function love.load()
         ['mainmenu'] = function() return MainMenu() end,
         ['control'] = function() return Controls() end,
         ['gamestate'] = function() return GameState() end,
+        ['gamemenu'] = function() return GameMenu() end,
         ['level'] = function() return Level() end,
         ['playstate'] = function() return PlayState() end,
         ['textstate'] = function() return TextPage() end

@@ -17,18 +17,15 @@ function MainMenu:enter()
         selectionOn = true,
         items = {
             {
-                text = 'New Game Menu',
+                text = 'New Game Menu', -- 'Game Saves Menu' -- GameMenu
                 onSelect = function ()
                     party = Party:init()
-                    gStateMachine:change('textstate', {'Adventure awaits, go forth and conquer', 'gamestate', {party, nil, nil, nil, 1}})
+                    gStateMachine:change('textstate', {gQuotes[1], 'gamestate', {party, nil, nil, nil, 1}})
                 end
             },
-            {   text = 'Load Game Menu',
+            {   text = 'Load Game Menu', -- 'Game Saves Menu' -- GameMenu
                 onSelect = function()
-                    name = '1'
-                    data = tostring(love.filesystem.getSaveDirectory( ) .. '/' .. name) --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
-                    success, message = love.filesystem.load(data)
-                    love.window.setTitle(message)
+                    gStateMachine:change('gamemenu')
                 end
             },
             {

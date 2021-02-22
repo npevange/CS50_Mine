@@ -19,6 +19,7 @@ function Unit:init(def)
     self.AI = def.AI or nil
     self.Kills = 0
     self.Blessing = def.Blessing or nil
+    self.heroNum = def.heroNum or 0
 
     self.HPbase = def.HPbase
     self.Attackbase = def.Attackbase
@@ -37,12 +38,11 @@ function Unit:init(def)
     self.Defense = self.Defensebase
     self.Speed = self.Speedbase
 
-    self.level = tonumber(def.level)
-
-    self.currentEXP = 0
-    self.EXPtoLevel = 100
+    self.level = def.level
     
-    self:calculateStats(self)
+    if self.AI ~= nil then
+        self:calculateStats(self)
+    end
 
     self.currentHP = self.HP
 end
