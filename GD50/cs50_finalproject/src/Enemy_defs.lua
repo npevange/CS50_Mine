@@ -10,7 +10,11 @@ ENEMY_IDS = {
     'Bandit', 'Swordsman', 'Goblin', 'GelatinousCube', 'SeaDweller'
 }
 BOSS_IDS = {
-    'Vampire', 'Leviathan', 'Golem', 'WereWolf'
+    'Vampire', 'Golem', 'Leviathan', 'WereWolf'
+}
+
+BOSS_IDS_2 = {
+    'VampireMinon', 'Ent', 'EmeraldSerpent', 'YoungWereWolf'
 }
 
 ENEMY_DEFS = {
@@ -132,6 +136,65 @@ BOSS_DEFS = {
     ['WereWolf'] = {
         name = 'WereWolf',
         sprite = 'WereWolf',
+        HPbase = 20,
+        Attackbase = 5,
+        Defensebase = 5,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    }
+}
+
+BOSS_DEFS_2 = {
+    ['VampireMinion'] = {
+        name = 'Vampire Minion',
+        sprite = 'VampireMinion',
+        HPbase = 20,
+        Attackbase = 5,
+        Defensebase = 5,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    },
+    ['EmeraldSerpent'] = {
+        name = 'Emerald Serpent',
+        sprite = 'EmeraldSerpent',
+        HPbase = 20,
+        Attackbase = 5,
+        Defensebase = 5,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    },
+    ['Ent'] = {
+        name = 'Ent',
+        sprite = 'Ent',
+        HPbase = 20,
+        Attackbase = 5,
+        Defensebase = 5,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    },
+    ['YoungWereWolf'] = {
+        name = 'Young WereWolf',
+        sprite = 'YoungWereWolf',
         HPbase = 20,
         Attackbase = 5,
         Defensebase = 5,

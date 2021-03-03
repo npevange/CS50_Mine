@@ -18,7 +18,7 @@ function Unit:init(def)
     self.actionTaken = false
     self.AI = def.AI or nil
     self.Kills = 0
-    self.Blessing = def.Blessing or nil
+    self.Blessing = def.Blessing or {}
     self.heroNum = def.heroNum or 0
 
     self.HPbase = def.HPbase
@@ -73,7 +73,7 @@ end
 function Unit:statsLevelUp(self)
     local HPIncrease = 0
 
-    for j = 1, 3 do
+    for j = 1, 1 do
         if math.random(6) <= self.HPIV then
             self.HP = self.HP + 1
             HPIncrease = HPIncrease + 1
@@ -82,7 +82,7 @@ function Unit:statsLevelUp(self)
 
     local attackIncrease = 0
 
-    for j = 1, 3 do
+    for j = 1, 1 do
         if math.random(6) <= self.AttackIV then
             self.Attack = self.Attack + 1
             attackIncrease = attackIncrease + 1
@@ -91,7 +91,7 @@ function Unit:statsLevelUp(self)
 
     local defenseIncrease = 0
 
-    for j = 1, 3 do
+    for j = 1, 1 do
         if math.random(6) <= self.DefenseIV then
             self.Defense = self.Defense + 1
             defenseIncrease = defenseIncrease + 1
@@ -100,7 +100,7 @@ function Unit:statsLevelUp(self)
 
     local speedIncrease = 0
 
-    for j = 1, 3 do
+    for j = 1, 1 do
         if math.random(6) <= self.SpeedIV then
             self.Speed = self.Speed + 1
             speedIncrease = speedIncrease + 1

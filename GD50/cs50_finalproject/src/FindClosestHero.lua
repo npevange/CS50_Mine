@@ -79,6 +79,9 @@ function FindClosestHero(enemy, levelStage, index)
             break
         end
     end
+    Timer.tween(1, {
+        [enemy] = {x = enemy.x + moveX, y = enemy.y + moveY},
+    })
     enemy.x = enemy.x + moveX
     enemy.y = enemy.y + moveY
     checkRange = CheckRange(enemy, levelStage.entities[closestHeroIndex])
@@ -94,3 +97,9 @@ function FindClosestHero(enemy, levelStage, index)
         end
     end
 end
+
+
+-- Timer.tween(0.1, {
+--     [self.highlightedTile] = {x = newTile.x, y = newTile.y},
+--     [newTile] = {x = self.highlightedTile.x, y = self.highlightedTile.y}
+-- })

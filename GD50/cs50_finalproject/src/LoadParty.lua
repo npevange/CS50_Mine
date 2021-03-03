@@ -8,10 +8,11 @@
 LoadParty = Class{}
 
 function LoadParty:init(inputs)
-    local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level = GetUnitDef(HERO_DEFS, HERO_IDS, 1)
+    local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level, _
     self.party = {}
     for i, heroes in pairs(inputs) do
         if inputs[i]['heroNum'] == 1 then
+            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level, _ = GetUnitDef(HERO_DEFS, HERO_IDS, 1)
             self.Andrew = Unit{
                 name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, heroNum = heroNum, level = level
             }
@@ -19,9 +20,10 @@ function LoadParty:init(inputs)
             self.Andrew.Attack = inputs[i]['Attack']
             self.Andrew.Defense = inputs[i]['Defense']
             self.Andrew.Speed = inputs[i]['Speed']
-            table.insert(self.party, self.Andrew)
+            self.Andrew.Blessing = inputs[i]['Blessing']
+            table.insert(self.party, 1, self.Andrew)
         elseif inputs[i]['heroNum'] == 2 then
-            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 2)
+            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level, _ = GetUnitDef(HERO_DEFS, HERO_IDS, 2)
             self.Christian = Unit{
                 name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, heroNum = heroNum, level = level
             }
@@ -29,9 +31,10 @@ function LoadParty:init(inputs)
             self.Christian.Attack = inputs[i]['Attack']
             self.Christian.Defense = inputs[i]['Defense']
             self.Christian.Speed = inputs[i]['Speed']
-            table.insert(self.party, self.Christian)
+            self.Christian.Blessing = inputs[i]['Blessing']
+            table.insert(self.party, 1, self.Christian)
         elseif inputs[i]['heroNum'] == 3 then
-            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 3)
+            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level, _ = GetUnitDef(HERO_DEFS, HERO_IDS, 3)
             self.Nick = Unit{
                 name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, heroNum = heroNum, level = level
             }
@@ -39,10 +42,11 @@ function LoadParty:init(inputs)
             self.Nick.Attack = inputs[i]['Attack']
             self.Nick.Defense = inputs[i]['Defense']
             self.Nick.Speed = inputs[i]['Speed']
+            self.Nick.Speed = inputs[i]['Blessing']
             self.Nick.Range = 2
-            table.insert(self.party, self.Nick)
+            table.insert(self.party, 1, self.Nick)
         elseif inputs[i]['heroNum'] == 4 then
-            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level = GetUnitDef(HERO_DEFS, HERO_IDS, 4)
+            name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, heroNum, level, _ = GetUnitDef(HERO_DEFS, HERO_IDS, 4)
             self.Cameron = Unit{
                 name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, heroNum = heroNum, level = level
             }
@@ -50,7 +54,8 @@ function LoadParty:init(inputs)
             self.Cameron.Attack = inputs[i]['Attack']
             self.Cameron.Defense = inputs[i]['Defense']
             self.Cameron.Speed = inputs[i]['Speed']
-            table.insert(self.party, self.Cameron)
+            self.Cameron.Defense = inputs[i]['Blessing']
+            table.insert(self.party, 1, self.Cameron)
         end
     end
     return self.party

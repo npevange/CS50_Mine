@@ -16,14 +16,7 @@ function MainMenu:enter()
         height = 80,
         selectionOn = true,
         items = {
-            {
-                text = 'New Game Menu', -- 'Game Saves Menu' -- GameMenu
-                onSelect = function ()
-                    party = Party:init()
-                    gStateMachine:change('textstate', {gQuotes[1], 'gamestate', {party, nil, nil, nil, 1}})
-                end
-            },
-            {   text = 'Load Game Menu', -- 'Game Saves Menu' -- GameMenu
+            {   text = 'Game Saves Menu', -- 'Game Saves Menu' -- GameMenu
                 onSelect = function()
                     gStateMachine:change('gamemenu')
                 end

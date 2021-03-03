@@ -172,17 +172,20 @@ function GameState:update(dt)
     if #self.levelStage.enemies == 0 then
         -- You Win
         self.levelNum = self.levelNum + 1
-        -- Party Management --lv6 gain Nick --
+        -- Party Management
         PartyHeal(self.party)
         for i, hero in pairs(self.party) do
             hero:statsLevelUp(self.party[i])
         end
-        if self.levelNum % 5 == 0 then
+        if InList(gBossLevels, self.levelNum) then
             self.BossNum = self.BossNum + 1
             self.BossLevel = true
             gStateMachine:change('textstate', {gBossQuotes[self.BossNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
 
-        elseif InList(gQuoteLevels, self.levelNum) == true then
+        elseif InList(gQuoteLevels, self.levelNum) then
+            if InList(gBlessingLevels, self.levelNum) then
+                --Todo
+            end
             self.BossLevel = false
             gStateMachine:change('textstate', {gQuotes[self.levelNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
         else    

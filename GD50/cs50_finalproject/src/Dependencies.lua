@@ -76,7 +76,11 @@ gTextures = {
     ['Vampire'] = love.graphics.newImage('graphics/Vampire.png'),
     ['Leviathan'] = love.graphics.newImage('graphics/Leviathan.png'),
     ['Golem'] = love.graphics.newImage('graphics/Golem.png'),
-    ['WereWolf'] = love.graphics.newImage('graphics/WereWolf.png')
+    ['WereWolf'] = love.graphics.newImage('graphics/WereWolf.png'),
+    ['YoungWereWolf'] = love.graphics.newImage('graphics/YoungWereWolf.png'),
+    ['VampireMinion'] = love.graphics.newImage('graphics/VampireMinion.png'),
+    ['EmeraldSerpent'] = love.graphics.newImage('graphics/EmeraldSerpent.png'),
+    ['Ent'] = love.graphics.newImage('graphics/Ent.png')
 }
 
 gFrames = {
@@ -93,7 +97,11 @@ gFrames = {
     ['Vampire'] = GenerateQuads(gTextures['Vampire'], 32, 32),
     ['Leviathan'] = GenerateQuads(gTextures['Leviathan'], 32, 32),
     ['Golem'] = GenerateQuads(gTextures['Golem'], 32, 32),
-    ['WereWolf'] = GenerateQuads(gTextures['WereWolf'], 32, 32)
+    ['WereWolf'] = GenerateQuads(gTextures['WereWolf'], 32, 32),
+    ['YoungWereWolf'] = GenerateQuads(gTextures['YoungWereWolf'], 32, 32),
+    ['VampireMinion'] = GenerateQuads(gTextures['VampireMinion'], 32, 32),
+    ['EmeraldSerpent'] = GenerateQuads(gTextures['EmeraldSerpent'], 32, 32),
+    ['Ent'] = GenerateQuads(gTextures['Ent'], 32, 32)
 }
 
 gFonts = {
