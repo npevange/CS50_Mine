@@ -21,7 +21,7 @@ TERRAIN_IDS = {
 }
 
 TERRAIN_HITMODS = {
-    0, -5, 5, -10, -5}
+    0, 5, -5, 10, 5}
 
 
 TERRAIN_DEFMODS = {

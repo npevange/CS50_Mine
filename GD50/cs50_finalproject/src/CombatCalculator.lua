@@ -14,8 +14,18 @@ function CombatCalculator(attacker, defender, levelStage)
     local damage = math.max(1, attacker.Attack - defender.Defense - levelStage.defMod[defender.y][defender.x])
     if toHit <= hitChance and defender.currentHP > 0 then
         -- Hit
+        if InList(attacker.Blessing, "Blood") then
+            attacker.currentHP = math.min(attacker.HP, attacker.currentHP + 1)
+        end
         defender.currentHP = defender.currentHP - damage
         if defender.currentHP < 1 then
+            if InList(defender.Blessing, "Stone") then
+                local deathchance = math.random(100)
+                if deathchance > 75 then
+                    defender.currentHP = defender.currentHP + damage
+                    return false
+                end
+            end
             return true
             -- Remove Unit from board and clean up
             -- return something remove from Level Stage

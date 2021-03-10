@@ -69,7 +69,8 @@ gTextures = {
     ['Nick'] = love.graphics.newImage('graphics/Nick.png'),
     ['Bandit'] = love.graphics.newImage('graphics/Bandit.png'),
     ['Swordsman'] = love.graphics.newImage('graphics/Swordsman.png'),
-    ['GelatinousCube'] = love.graphics.newImage('graphics/TestingCube.png'),
+    ['OrcWarrior'] = love.graphics.newImage('graphics/OrcWarrior.png'),
+    ['OrcBerserker'] = love.graphics.newImage('graphics/OrcBerserker.png'),
     ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
     ['Goblin'] = love.graphics.newImage('graphics/Goblin.png'),
     ['SeaDweller'] = love.graphics.newImage('graphics/SeaDweller.png'),
@@ -78,9 +79,11 @@ gTextures = {
     ['Golem'] = love.graphics.newImage('graphics/Golem.png'),
     ['WereWolf'] = love.graphics.newImage('graphics/WereWolf.png'),
     ['YoungWereWolf'] = love.graphics.newImage('graphics/YoungWereWolf.png'),
-    ['VampireMinion'] = love.graphics.newImage('graphics/VampireMinion.png'),
+    ['Dhampir'] = love.graphics.newImage('graphics/VampireMinion.png'),
     ['EmeraldSerpent'] = love.graphics.newImage('graphics/EmeraldSerpent.png'),
-    ['Ent'] = love.graphics.newImage('graphics/Ent.png')
+    ['Ent'] = love.graphics.newImage('graphics/Ent.png'),
+    ['DemonKnight'] = love.graphics.newImage('graphics/DemonKnight.png'),
+    ['DemonKnight2'] = love.graphics.newImage('graphics/DemonKnightclone.png')
 }
 
 gFrames = {
@@ -91,7 +94,8 @@ gFrames = {
     ['Nick'] = GenerateQuads(gTextures['Nick'], 32, 32),
     ['Bandit'] = GenerateQuads(gTextures['Bandit'], 32, 32),
     ['Swordsman'] = GenerateQuads(gTextures['Swordsman'], 32, 32),
-    ['GelatinousCube'] = GenerateQuads(gTextures['GelatinousCube'], 32, 32),
+    ['OrcWarrior'] = GenerateQuads(gTextures['OrcWarrior'], 32, 32),
+    ['OrcBerserker'] = GenerateQuads(gTextures['OrcBerserker'], 32, 32),
     ['Goblin'] = GenerateQuads(gTextures['Goblin'], 32, 32),
     ['SeaDweller'] = GenerateQuads(gTextures['SeaDweller'], 32, 32),
     ['Vampire'] = GenerateQuads(gTextures['Vampire'], 32, 32),
@@ -99,9 +103,11 @@ gFrames = {
     ['Golem'] = GenerateQuads(gTextures['Golem'], 32, 32),
     ['WereWolf'] = GenerateQuads(gTextures['WereWolf'], 32, 32),
     ['YoungWereWolf'] = GenerateQuads(gTextures['YoungWereWolf'], 32, 32),
-    ['VampireMinion'] = GenerateQuads(gTextures['VampireMinion'], 32, 32),
+    ['Dhampir'] = GenerateQuads(gTextures['Dhampir'], 32, 32),
     ['EmeraldSerpent'] = GenerateQuads(gTextures['EmeraldSerpent'], 32, 32),
-    ['Ent'] = GenerateQuads(gTextures['Ent'], 32, 32)
+    ['Ent'] = GenerateQuads(gTextures['Ent'], 32, 32),
+    ['DemonKnight'] = GenerateQuads(gTextures['DemonKnight'], 32, 32),
+    ['DemonKnight2'] = GenerateQuads(gTextures['DemonKnight2'], 32, 32)
 }
 
 gFonts = {

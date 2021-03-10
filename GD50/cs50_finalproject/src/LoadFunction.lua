@@ -17,6 +17,8 @@ function LoadFunction(inputs)
 
     if InList(gQuoteLevels, inputs[2]) then
         gStateMachine:change('textstate', {gQuotes[inputs[2]], 'gamestate', {party, inputs[2], inputs[3], inputs[4], inputs[5]}})
+    elseif InList(gBossLevels, inputs[2]) then
+        gStateMachine:change('textstate', {gBossQuotes[inputs[3]], 'gamestate', {party, inputs[2], inputs[3], inputs[4], inputs[5]}})
     else
         gStateMachine:change('textstate', {gSaveQuotes[1], 'gamestate', {party, inputs[2], inputs[3], inputs[4], inputs[5]}})
     end

@@ -79,7 +79,7 @@ function FindClosestHero(enemy, levelStage, index)
             break
         end
     end
-    Timer.tween(1, {
+    Timer.tween(0.5, {
         [enemy] = {x = enemy.x + moveX, y = enemy.y + moveY},
     })
     enemy.x = enemy.x + moveX

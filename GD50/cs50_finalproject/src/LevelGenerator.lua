@@ -44,6 +44,11 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
 
         local name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, level, AI
         name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, _, level, AI = GetUnitDef(BOSS_DEFS, BOSS_IDS, BossNum)
+        -- if levelNum <= 16 then
+        --     level = levelNum
+        -- else
+        --     level = levelNum - 16
+        -- end
         enemy = Unit{
             name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level, AI = AI
         }
@@ -79,28 +84,33 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
             end
         end
 
+
         -- Enemy Generation {4,7,10,13,16}
-        if levelNum > 13 then
+        if levelNum <= 16 then
+            level = levelNum
+        else
+            level = levelNum - 16
+        if level > 13 then --WereWolfBoss
             numEnemies = math.random(3,5)
-            first = 1
-            last = 5
+            first = 4
+            last = 6
 
-        elseif levelNum > 10 then
+        elseif level > 10 then -- Leviathan Boss
             numEnemies = math.random(3,4)
-            first = 1
+            first = 3
             last = 5
 
-        elseif levelNum > 7 then
+        elseif level > 7 then -- Golem Boss
             numEnemies = math.random(2,3)
             first = 1
             last = 4
 
-        elseif levelNum > 4 then
+        elseif level > 4 then --Vampire boss
             numEnemies = math.random(2,3)
             first = 1
             last = 3
             
-        else -- levelNum < 5
+        else -- levelNum < 4
             numEnemies = 2
             first = 1
             last = 2
@@ -113,6 +123,11 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
         if numEnemies <= height then
             for x = 1, numEnemies do
                 name, sprite, HPbase, Attackbase, Defensebase, Speedbase, Move, HPIV, AttackIV, DefenseIV, SpeedIV, _, level, AI = GetUnitDef(ENEMY_DEFS, ENEMY_IDS, math.random(first,last))
+                if levelNum <= 16 then
+                    level = levelNum
+                else
+                    level = levelNum - 16
+                end
                 enemy = Unit{
                     name = name, sprite = sprite, HPbase = HPbase, Attackbase = Attackbase, Defensebase = Defensebase, Speedbase = Speedbase, Move = Move, HPIV = HPIV, AttackIV = AttackIV, DefenseIV = DefenseIV, SpeedIV = SpeedIV, level = level, AI = AI
                 }

@@ -29,7 +29,13 @@ function Controls:enter()
                 end
             },
             {
-                text = 'M to open the menu, if no unit selected',
+                text = 'M to open the save menu, if no unit selected',
+                onSelect = function ()
+                    gStateMachine:change('mainmenu')
+                end
+            },
+            {
+                text = 'Esc to quit the game',
                 onSelect = function ()
                     gStateMachine:change('mainmenu')
                 end

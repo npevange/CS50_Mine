@@ -7,11 +7,12 @@
 ]]
 
 sPath = love.filesystem.getSaveDirectory()
-love.filesystem.setRequirePath("?.lua;?/init.lua;" .. sPath .. "/?")
+love.filesystem.setRequirePath("?.lua;?/init.lua;" .. sPath .. "/?;?OdysseyQuest?")
 require 'src/Dependencies'
 
 function love.load()
     love.window.setTitle('Odyssey Quest')
+
     love.graphics.setDefaultFilter('nearest', 'nearest') --If I want to make it blocky
     math.randomseed(os.time())
 
@@ -41,7 +42,7 @@ end
 
 function love.keypressed(key)
     if key == 'escape' then
-        love.event.quit()
+        -- love.event.quit()
     end
     love.keyboard.keysPressed[key] = true
 end

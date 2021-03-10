@@ -7,14 +7,14 @@
 ]]
 
 ENEMY_IDS = {
-    'Bandit', 'Swordsman', 'Goblin', 'GelatinousCube', 'SeaDweller'
+    'Bandit', 'Swordsman', 'Goblin', 'OrcWarrior', 'OrcBerserker', 'SeaDweller'
 }
 BOSS_IDS = {
-    'Vampire', 'Golem', 'Leviathan', 'WereWolf'
+    'Vampire', 'Golem', 'Leviathan', 'WereWolf','DemonKnight','Dhampir', 'Ent', 'EmeraldSerpent', 'YoungWereWolf','DemonKnight2'
 }
 
 BOSS_IDS_2 = {
-    'VampireMinon', 'Ent', 'EmeraldSerpent', 'YoungWereWolf'
+    'Dhampir', 'Ent', 'EmeraldSerpent', 'YoungWereWolf'
 }
 
 ENEMY_DEFS = {
@@ -46,9 +46,23 @@ ENEMY_DEFS = {
         SpeedIV = 4,
         AI = 'aggro'
     },
-    ['GelatinousCube'] = {
-        name = 'GelatinousCube',
-        sprite = 'GelatinousCube',
+    ['OrcWarrior'] = {
+        name = 'Orc Warrior',
+        sprite = 'OrcWarrior',
+        HPbase = 7,
+        Attackbase = 5,
+        Defensebase = 4,
+        Speedbase = 3,
+        Move = 3,
+        HPIV = 2,
+        AttackIV = 2,
+        DefenseIV = 1,
+        SpeedIV = 2,
+        AI = 'aggro'
+    },
+    ['OrcBerserker'] = {
+        name = 'Orc Berserker',
+        sprite = 'OrcBerserker',
         HPbase = 7,
         Attackbase = 5,
         Defensebase = 2,
@@ -57,7 +71,7 @@ ENEMY_DEFS = {
         HPIV = 2,
         AttackIV = 3,
         DefenseIV = 1,
-        SpeedIV = 4,
+        SpeedIV = 3,
         AI = 'aggro'
     },
     ['SeaDweller'] = {
@@ -69,8 +83,8 @@ ENEMY_DEFS = {
         Speedbase = 3,
         Move = 3,
         HPIV = 4,
-        AttackIV = 3,
-        DefenseIV = 3,
+        AttackIV = 2,
+        DefenseIV = 2,
         SpeedIV = 3,
         AI = 'aggro'
     },
@@ -95,9 +109,9 @@ BOSS_DEFS = {
         name = 'Vampire',
         sprite = 'Vampire',
         HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
-        Speedbase = 5,
+        Attackbase = 7,
+        Defensebase = 7,
+        Speedbase = 8,
         Move = 3,
         HPIV = 5,
         AttackIV = 3,
@@ -108,10 +122,10 @@ BOSS_DEFS = {
     ['Leviathan'] = {
         name = 'Leviathan',
         sprite = 'Leviathan',
-        HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
-        Speedbase = 5,
+        HPbase = 30,
+        Attackbase = 11,
+        Defensebase = 7,
+        Speedbase = 7,
         Move = 3,
         HPIV = 5,
         AttackIV = 3,
@@ -122,9 +136,9 @@ BOSS_DEFS = {
     ['Golem'] = {
         name = 'Golem',
         sprite = 'Golem',
-        HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
+        HPbase = 25,
+        Attackbase = 8,
+        Defensebase = 7,
         Speedbase = 5,
         Move = 3,
         HPIV = 5,
@@ -136,27 +150,24 @@ BOSS_DEFS = {
     ['WereWolf'] = {
         name = 'WereWolf',
         sprite = 'WereWolf',
-        HPbase = 20,
-        Attackbase = 5,
+        HPbase = 40,
+        Attackbase = 12,
         Defensebase = 5,
-        Speedbase = 5,
+        Speedbase = 10,
         Move = 3,
         HPIV = 5,
         AttackIV = 3,
         DefenseIV = 3,
         SpeedIV = 4,
         AI = 'boss'
-    }
-}
-
-BOSS_DEFS_2 = {
-    ['VampireMinion'] = {
-        name = 'Vampire Minion',
-        sprite = 'VampireMinion',
+    },
+    ['Dhampir'] = {
+        name = 'Dhampir',
+        sprite = 'Dhampir',
         HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
-        Speedbase = 5,
+        Attackbase = 7,
+        Defensebase = 7,
+        Speedbase = 8,
         Move = 3,
         HPIV = 5,
         AttackIV = 3,
@@ -167,10 +178,10 @@ BOSS_DEFS_2 = {
     ['EmeraldSerpent'] = {
         name = 'Emerald Serpent',
         sprite = 'EmeraldSerpent',
-        HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
-        Speedbase = 5,
+        HPbase = 30,
+        Attackbase = 11,
+        Defensebase = 7,
+        Speedbase = 7,
         Move = 3,
         HPIV = 5,
         AttackIV = 3,
@@ -181,9 +192,9 @@ BOSS_DEFS_2 = {
     ['Ent'] = {
         name = 'Ent',
         sprite = 'Ent',
-        HPbase = 20,
-        Attackbase = 5,
-        Defensebase = 5,
+        HPbase = 25,
+        Attackbase = 8,
+        Defensebase = 7,
         Speedbase = 5,
         Move = 3,
         HPIV = 5,
@@ -195,9 +206,23 @@ BOSS_DEFS_2 = {
     ['YoungWereWolf'] = {
         name = 'Young WereWolf',
         sprite = 'YoungWereWolf',
-        HPbase = 20,
-        Attackbase = 5,
+        HPbase = 40,
+        Attackbase = 10,
         Defensebase = 5,
+        Speedbase = 10,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    },
+    ['DemonKnight'] = {
+        name = 'Demon Knight',
+        sprite = 'DemonKnight',
+        HPbase = 45,
+        Attackbase = 10,
+        Defensebase = 8,
         Speedbase = 5,
         Move = 3,
         HPIV = 5,
@@ -205,5 +230,19 @@ BOSS_DEFS_2 = {
         DefenseIV = 3,
         SpeedIV = 4,
         AI = 'boss'
-    }
+    },
+    ['DemonKnight2'] = {
+        name = 'Demon Knight',
+        sprite = 'DemonKnight2',
+        HPbase = 45,
+        Attackbase = 10,
+        Defensebase = 8,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 5,
+        AttackIV = 3,
+        DefenseIV = 3,
+        SpeedIV = 4,
+        AI = 'boss'
+    },
 }

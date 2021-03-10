@@ -102,20 +102,8 @@ function GameState:enter(enterParams) --party, levelNum, bossNum
                     nameLevel = tostring(self.SaveState .. 'Level.txt')
                     dataLevel = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'level')
                     success, message = love.filesystem.write( nameLevel, dataLevel)
-                end
-            },
-            {
-                text = 'Load Game (Options?)',
-                onSelect = function ()
-                    test = love.filesystem.getSaveDirectory()
-                    fTest, error = loadfile(love.filesystem.getSaveDirectory( ).."/1.txt")
-                    fTest()
-                end
-            },
-            {
-                text = 'Quit',
-                onSelect = function ()
-                    --Quit Menu
+
+                    love.event.quit()
                 end
             },
             {
@@ -180,17 +168,56 @@ function GameState:update(dt)
         if InList(gBossLevels, self.levelNum) then
             self.BossNum = self.BossNum + 1
             self.BossLevel = true
+            -- name = tostring(self.SaveState .. '.txt')
+            -- data = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'load') --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
+            -- success, message = love.filesystem.write( name, data)
+
+            -- nameLevel = tostring(self.SaveState .. 'Level.txt')
+            -- dataLevel = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'level')
+            -- success, message = love.filesystem.write( nameLevel, dataLevel)
             gStateMachine:change('textstate', {gBossQuotes[self.BossNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
+
+            -- table.insert(self.party, 1, self.Andrew)
 
         elseif InList(gQuoteLevels, self.levelNum) then
             if InList(gBlessingLevels, self.levelNum) then
-                --Todo
+                if gBlessingLevels[1] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Blood')
+                    end
+                elseif gBlessingLevels[2] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Stone')
+                    end
+                elseif gBlessingLevels[3] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Tempest')
+                    end
+                elseif gBlessingLevels[4] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Hunter')
+                    end
+                end
             end
             self.BossLevel = false
+            
+            -- name = tostring(self.SaveState .. '.txt')
+            -- data = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'load') --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
+            -- success, message = love.filesystem.write( name, data)
+
+            -- nameLevel = tostring(self.SaveState .. 'Level.txt')
+            -- dataLevel = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'level')
+            -- success, message = love.filesystem.write( nameLevel, dataLevel)
             gStateMachine:change('textstate', {gQuotes[self.levelNum] , 'gamestate' , {self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState}})
-        else    
-            self.BossLevel = false
-            self:level(self)
+        else
+            -- name = tostring(self.SaveState .. '.txt')
+            -- data = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'load') --love.filesystem.getSaveDirectory() Gives full path to where data is saved.
+            -- success, message = love.filesystem.write( name, data)
+
+            -- nameLevel = tostring(self.SaveState .. 'Level.txt')
+            -- dataLevel = SaveObject(self.party, self.levelNum, self.BossNum, self.BossLevel, self.SaveState, 'level')
+            -- success, message = love.filesystem.write( nameLevel, dataLevel)
+            gStateMachine:change('textstate', {gQuoteGameEnd[1] , 'mainmenu'})
         end
     end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
@@ -269,12 +296,19 @@ function GameState:update(dt)
             elseif self.commandMoveBool == true then
                 if (math.abs(self.currentUnit.x - self.highlightedTile.x) + math.abs(self.currentUnit.y - self.highlightedTile.y)) <= self.currentUnit.Move then
                     if self.currentLocations.entities[self.highlightedTile.y][self.highlightedTile.x] == false and self.currentLocations.enemies[self.highlightedTile.y][self.highlightedTile.x] == false then
-                        self.currentUnit.x = self.highlightedTile.x
-                        self.currentUnit.y = self.highlightedTile.y
-                        self.currentLocations = CurrentLocations(self.levelStage)
-                        self.levelStage.currentLocations = self.currentLocations
-                        self.currentUnit.moveTaken = true
-                        self.commandMoveBool = false
+                        local TempX = self.highlightedTile.x
+                        local TempY = self.highlightedTile.y
+                        Timer.tween(0.5, {
+                            [self.currentUnit] = {x = TempX, y = TempY},
+                        })
+                        :finish(function()
+                            self.currentUnit.x = TempX
+                            self.currentUnit.y = TempY
+                            self.currentLocations = CurrentLocations(self.levelStage)
+                            self.levelStage.currentLocations = self.currentLocations
+                            self.currentUnit.moveTaken = true
+                            self.commandMoveBool = false
+                        end)
                     end
                 else
                     self.commandMoveBool = false
