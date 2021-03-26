@@ -4,6 +4,10 @@
 
     Author: Nathan Evangelista
     npevangelista@ucdavis.edu
+
+    -- Adjusts enemy movement toward zero from the designated values toward closest player character.
+
+    -- 
 ]]
 
 
@@ -11,7 +15,9 @@ function AdjustMove(enemy, moveX, moveY, levelStage)
     local tempmoveX = moveX
     local tempmoveY = moveY
     local rand = math.random(1,2)
-    if tempmoveX == 0 then
+    if tempmoveX == 0 and tempmoveY == 0 then
+        return tempmoveX, tempmoveY
+    elseif tempmoveY == 0 then
         rand = 2
     elseif tempmoveY == 0 then
         rand = 1

@@ -14,6 +14,7 @@ function GameState:enter(enterParams) --party, levelNum, bossNum
     self.party = enterParams[1] or Party:init()
     PartyHeal(self.party)
     -- init level
+    self.party1 = {}
     self.levelNum = enterParams[2] or 1
     self.BossNum = enterParams[3] or 0
     self.BossLevel = enterParams[4] or false
@@ -122,6 +123,10 @@ function GameState:level(self)
     self.levelx = 8 --math.random(6,8) --#self.levelStage.tileMap.tiles[1]
     self.levely = 5 --math.random(4,5) --#self.levelStage.tileMap.tiles
     -- Check for loaded Level / enemies
+    if self.levelNum == 17 then
+        self.party1 = self.party
+        self.party = PartyLoop2:init()
+    end
 
     self.levelStage = LevelGenerator.generate(self.levelx, self.levely, self.levelNum, self.BossNum, self.BossLevel) --Game Level entities, objects, tiles
     
@@ -144,7 +149,10 @@ function GameState:level(self)
         width = 128,
         height = 136,
         group = self.levelStage.entities,
-        selectionOn = false}
+        mapHit = self.levelStage.hitMod,
+        mapDef = self.levelStage.defMod,
+        selectionOn = false
+    }
 
     -- Enemy stats menu
     self.characterenemyMenu = CharacterMenu {
@@ -153,7 +161,18 @@ function GameState:level(self)
         width = 128,
         height = 136,
         group = self.levelStage.enemies,
-        selectionOn = false}
+        mapHit = self.levelStage.hitMod,
+        mapDef = self.levelStage.defMod,
+        selectionOn = false
+    }
+    
+    self.combatMenu = CombatMenu{
+        x = 0,
+        y = VIRTUAL_HEIGHT - 56,
+        width = VIRTUAL_WIDTH - 128,
+        height = 56,
+        selectionOn = false
+    }
 end
 
 function GameState:update(dt)
@@ -197,6 +216,22 @@ function GameState:update(dt)
                     for i, hero in pairs(self.party) do
                         table.insert(hero.Blessing, 1, 'Hunter')
                     end
+                elseif gBlessingLevels[5] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Blood')
+                    end
+                elseif gBlessingLevels[6] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Stone')
+                    end
+                elseif gBlessingLevels[7] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Tempest')
+                    end
+                elseif gBlessingLevels[8] == self.levelNum then
+                    for i, hero in pairs(self.party) do
+                        table.insert(hero.Blessing, 1, 'Hunter')
+                    end
                 end
             end
             self.BossLevel = false
@@ -222,6 +257,7 @@ function GameState:update(dt)
     end
     self.characterheroMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
     self.characterenemyMenu:update(dt, self.highlightedTile.x, self.highlightedTile.y)
+    self.combatMenu:update(dt)
     for i, heroes in pairs(self.levelStage.entities) do
         if self.levelStage.entities[i].turnTaken == false then
             break
@@ -243,7 +279,7 @@ function GameState:update(dt)
             self.currentLocations = CurrentLocations(self.levelStage)
             self.levelStage.currentLocations = self.currentLocations
 
-            EnemyTurn(enemy, self.levelStage, i)
+            EnemyTurn(enemy, self.levelStage, i, self.combatMenu)
 
             self.currentLocations = CurrentLocations(self.levelStage)
             self.levelStage.currentLocations = self.currentLocations
@@ -328,7 +364,7 @@ function GameState:update(dt)
                         
                         -- attack stuff goes here, check for enemy in the tile, calculate damage, etc.
                         local deadUnit = false
-                        deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage)
+                        deadUnit = CombatCalculator(self.currentUnit, self.currentDefender, self.levelStage, self.combatMenu)
                         -- if dead units, remove from levelStage
                         if deadUnit == true then
                             if self.currentUnit.currentHP < 1 then
@@ -338,14 +374,13 @@ function GameState:update(dt)
                                 self.currentUnit.Kills = self.currentUnit.Kills + 1
                                 table.remove(self.levelStage.enemies, self.currentDefenderIndex)
                             end
-
                             self.currentLocations = CurrentLocations(self.levelStage)
                             self.levelStage.currentLocations = self.currentLocations
-
                         end
 
                         self.currentUnit.actionTaken = true
                         self.currentUnit.turnTaken = true
+                        self.currentUnit.moveTaken = true
                         self.commandAttackBool = false
                         self.commandMenuBool = false
                     end
@@ -371,6 +406,7 @@ function GameState:render(dt)
         self.characterenemyMenu:render()
     end
     self.levelStage:render()
+    self.combatMenu:render()
 
     
     if self.commandMenuBool == true then

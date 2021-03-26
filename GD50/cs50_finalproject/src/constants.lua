@@ -8,12 +8,21 @@
     npevangelista@ucdavis.edu
 ]]
 -- size of push emulator
-VIRTUAL_WIDTH = 384 --576 --768
-VIRTUAL_HEIGHT = 216 --324 --432
+VIRTUAL_WIDTH = 384
+VIRTUAL_HEIGHT = 216
+
+-- VIRTUAL_WIDTH = 576
+-- VIRTUAL_HEIGHT = 324
+
+-- VIRTUAL_WIDTH = 768
+-- VIRTUAL_HEIGHT = 432
 
 -- actual size
-WINDOW_WIDTH = 1280 --1360
-WINDOW_HEIGHT = 720 --768
+-- WINDOW_WIDTH = 1280
+-- WINDOW_HEIGHT = 720
+
+WINDOW_WIDTH = 1360
+WINDOW_HEIGHT = 768
 
 -- global standard tile size
 TILE_SIZE = 32
@@ -71,12 +80,12 @@ gQuotes = {
 --[[lv 22]]   "Nick: Our next destination is Hilltop.\nCameron: That could be dangerous if the empire's dungeons did their work on Andrew and Christian.\nNick: It's a vital stronghold to secure so we have to take our chances.\nCameron: I'm worried, but it's your call.",
               "",
 --[[lv 24]]   "ACT III: THIS WAS NEVER OUR QUEST\n\nNick: Christian will need immediate treatment at one of our specialized camps. The damage that was done to him is extensive.\nAndrew: I couldn't have guessed the Empire was capable of such terrible crimes.\nNick: They think that whatever happened in that torture chamber is manifesting itself.\nAndrew: When will we see him again, his wounds looked severe.\nNick: They can't foresee any improvements at this time.\nAndrew: May the Gods have mercy on his soul.\n\nBlessing of Stone: Gives heroes a chance to survive fatal hits in combat.",
---[[lv 25]]   "Cameron: I don't understand why we have to track down this cure.\nNick: We aren't needed on the frontlines right now, and this is the perfectexcuse to poke around and investigate.\nCameron: Well it feels like gruntwork.\nNick: Trust in their leadership, I have and we are so close to our goal.",
+--[[lv 25]]   "Cameron: I don't understand why we have to track down this cure.\nNick: We aren't needed on the frontlines right now, and this is the perfect excuse to poke around and investigate.\nCameron: Well it feels like gruntwork.\nNick: Trust in their leadership, I have and we are so close to our goal.",
               "",
 --[[lv 27]]   "ACT IV: SOMETHING WICKED HAS BEEN HERE\n\nNick: It seems like the legends are true. I believe that the Beast is tracking us back towards camp.\nCameron: That was one of the tales I had always hoped to actually be a myth.\nNick: We won't be able to avoid confrontation, but maybe we can reach our backup first.\nCameron: While we haven't sustained major injuries, we might be slowed too much. If it comes down to a fight for our lives, we will need to be well rested.\n\nBlessing of the Tempest: An ancient cure has been harnessed.",
---[[lv 28]]   "Nick: Every night I hear the howling growing closer.\nCameron: Do you think we can rely on all the legends to be true.\nNick: If you're thinking of leaving a sacrifice, that's horrible. I wouldn't expect that thought from you, unless you are feeling that desperate.\nCameron: The Beast is said the be an ancient evil. Unstoppable is it's might. Unfathomable is it's terror.\nNick: These other creatures have been manageable so let's keep our heads up for now.",
+--[[lv 28]]   "Nick: Every night I hear the howling growing closer.\nCameron: Do you think we can rely on all the legends to be true.\nNick: If you're thinking of leaving a sacrifice, that's horrible. I wouldn't expect that thought from you, unless you are feeling that desperate.\nCameron: The Beast is said the be an ancient evil. Unstoppable is its might. Unfathomable is its terror.\nNick: These other creatures have been manageable so let's keep our heads up for now.",
                 "",
---[[lv 30]]   "ACT V: RETRIBUTION\n\nCameron:...\nNick: That wasn't so bad. We're still on track with the rebellion.\nCameron: What if the Empire has more of those unspeakable horrors. I don't know how much more I can take.\nNick: We're so close now. Just keep strong for a bit longer. All of our hopes and dreams, the efforts of so many have led to this.\nCameron: I hope that it is worth it.\n\nBlessing of the Hunter: Only those who slay the Hunter can wield it's power to defeat the mightiest of foes.",
+--[[lv 30]]   "ACT V: RETRIBUTION\n\nCameron:...\nNick: That wasn't so bad. We're still on track with the rebellion.\nCameron: What if the Empire has more of those unspeakable horrors. I don't know how much more I can take.\nNick: We're so close now. Just keep strong for a bit longer. All of our hopes and dreams, the efforts of so many have led to this.\nCameron: I hope that it is worth it.\n\nBlessing of the Hunter: Only those who slay the Hunter can wield its power to defeat the mightiest of foes.",
 --[[lv 31]]   "Nick: We're approaching the empires last stronghold. The rebels are closing in and all their escapes are sealed. This is why we fight."
 }
 
@@ -93,7 +102,7 @@ gBossQuotes = {
     "This is not the monster expected, but a son that never should have been.\nThe unholy union between bloodsucker and mortal, he stalks dusk til dawn.",
     "This Golem was not made, but born.\nA tiny sapling grown and grafted onto a soul.\nTheir wrath is gentle, a return to nature, a deadly spring bloom.",
     "You search in vain for the fountain of youth.\nA timeless river throughout history, twisting and turning like a serpent.\nBeware it's venomous bite for eternity is not what you expected.",
-    'At dawn the Beast was born.\nAt Dusk, it ran free.\nMoonlight chills running through the air, hunting for sport, inescapable as the night.',
+    'At Dawn the Beast was born.\nAt Dusk, it ran free.\nMoonlight chills running through the air, hunting for sport, inescapable as the night.',
     'A thousand loops, as uniform as a sphere.\nA curse or a cure, to repeat ad infinitum.\nNever exactly the same, but never divergent.\n The gatekeeper will die, the cycle repeats, a new hero is chosen on this endless journey.'
 }
 

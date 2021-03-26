@@ -13,6 +13,8 @@ function CharacterMenu:init(def)
     self.closed = false
     self.referenceGroup = def.group
     self.referenceUnit = self.referenceGroup[1]
+    self.mapHit = def.mapHit
+    self.mapDef = def.mapDef
     self.charStats = CharacterStats({
         x = def.x,
         y = def.y,
@@ -20,7 +22,7 @@ function CharacterMenu:init(def)
         height = def.height,
         selectionOn = def.selectionOn
     },
-    self.referenceGroup, self.referenceUnit)
+    self.mapHit, self.mapDef, self.referenceGroup, self.referenceUnit)
 end
 
 function CharacterMenu:update(dt, x, y)

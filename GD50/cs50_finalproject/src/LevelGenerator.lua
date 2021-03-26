@@ -90,6 +90,7 @@ function LevelGenerator.generate(width, height, levelNum, BossNum, BossLevel)
             level = levelNum
         else
             level = levelNum - 16
+        end
         if level > 13 then --WereWolfBoss
             numEnemies = math.random(3,5)
             first = 4

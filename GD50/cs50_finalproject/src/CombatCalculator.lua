@@ -6,9 +6,13 @@
     npevangelista@ucdavis.edu
 ]]
 
-function CombatCalculator(attacker, defender, levelStage)
+function CombatCalculator(attacker, defender, levelStage, combatMenu)
     local toHit = math.random(100)
-    local hitChance = 70 - levelStage.hitMod[defender.y][defender.x] + (((attacker.Speed - defender.Speed)/2)^3)
+    local hunterBuff = 0
+    if InList(attacker.Blessing, "Hunter") then
+        hunterBuff = 10
+    end
+    local hitChance = 70 - levelStage.hitMod[defender.y][defender.x] + (((attacker.Speed - defender.Speed)/2)^3) + hunterBuff
     -- local toHit = 50
     -- local hitChance = 70
     local damage = math.max(1, attacker.Attack - defender.Defense - levelStage.defMod[defender.y][defender.x])
@@ -23,17 +27,21 @@ function CombatCalculator(attacker, defender, levelStage)
                 local deathchance = math.random(100)
                 if deathchance > 75 then
                     defender.currentHP = defender.currentHP + damage
+                    combatMenu:text(string.format("The Blessing of Stone has hardened " .. defender.name))
                     return false
                 end
             end
+            combatMenu:text(string.format(attacker.name .. " has slain " .. defender.name .. ", dealing ".. damage .. " damage"))
             return true
-            -- Remove Unit from board and clean up
-            -- return something remove from Level Stage
+        else
+            combatMenu:text(string.format(attacker.name .. " has dealt " .. damage .. " damage to " .. defender.name))
         end
     else
-        -- love.window.setTitle(string.format("miss"))
+        combatMenu:text(string.format(attacker.name .. " missed an attack on " .. defender.name))
         -- Miss
         -- Possible Perks here
     end
     return false
 end
+
+--text = string.format("HP: " .. self.referenceUnit.currentHP)

@@ -12,8 +12,10 @@ require 'src/Dependencies'
 
 function love.load()
     love.window.setTitle('Odyssey Quest')
+    -- love.window.setTitle(love.filesystem.getSaveDirectory( ))
 
     love.graphics.setDefaultFilter('nearest', 'nearest') --If I want to make it blocky
+    love.audio.setVolume( 0.25 )
     math.randomseed(os.time())
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -25,6 +27,7 @@ function love.load()
     gStateMachine = StateMachine {
         ['mainmenu'] = function() return MainMenu() end,
         ['control'] = function() return Controls() end,
+        ['deletemenu'] = function() return DeleteMenu() end,
         ['gamestate'] = function() return GameState() end,
         ['gamemenu'] = function() return GameMenu() end,
         ['level'] = function() return Level() end,

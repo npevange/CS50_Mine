@@ -6,39 +6,30 @@
     npevangelista@ucdavis.edu
 ]]
 
-GameMenu = Class{__includes = BaseState}
+DeleteMenu = Class{__includes = BaseState}
 
-function GameMenu:enter()
+function DeleteMenu:enter()
     local state1 = false
     local state2 = false
     local state3 = false
 
     if love.filesystem.exists( "1.txt" ) == true then
         state1 = true
-        level1func = loadfile(love.filesystem.getSaveDirectory( ).."/1Level.txt")
-        level1func()
-        text1 = "Save State 1 - Level: " .. returnCurrentLevel
-        level1 = returnCurrentLevel
+        text1 = "Delete Save State 1"
     else
-        text1 = "New Game 1"
+        text1 = "No Save 1- Return"
     end
     if love.filesystem.exists( "2.txt" ) == true then
         state2 = true
-        level2func = loadfile(love.filesystem.getSaveDirectory( ).."/2Level.txt")
-        level2func()
-        text2 = "Save State 2 - Level: " .. returnCurrentLevel
-        level2 = returnCurrentLevel
+        text2 = "Delete Save State 2"
     else
-        text2 = "New Game 2"
+        text2 = "No Save 2- Return"
     end
     if love.filesystem.exists( "3.txt" ) == true then
         state3 = true
-        level3func= loadfile(love.filesystem.getSaveDirectory( ).."/3Level.txt")
-        level3func()
-        text3 = "Save State 3 - Level: " .. returnCurrentLevel
-        level3 = returnCurrentLevel
+        text3 = "Delete Save State 3"
     else
-        text3 = "New Game 3"
+        text3 = "No Save 3- Return"
     end
     self.mainMenu = Menu {
         x = VIRTUAL_WIDTH / 2 - 32,
@@ -51,22 +42,25 @@ function GameMenu:enter()
                 text = text1,
                 onSelect = function ()
                     if state1 then
-                        level1func = loadfile(love.filesystem.getSaveDirectory().."/1.txt")
-                        level1func()
+                        success = love.filesystem.remove("C:\\Users\\npeva\\Documents\\Deletetest1.txt")
+                        love.window.setTitle(tostring(success))
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/1.txt")
+                        -- love.window.setTitle(tostring(success))
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/1Level.txt")
+                        gStateMachine:change('mainmenu')
                     else
-                        party = Party:init()
-                        gStateMachine:change('textstate', {gQuotes[1], 'gamestate', {party, nil, nil, nil, 1}})
+                        gStateMachine:change('mainmenu')
                     end
                 end
             },
             {   text = text2,
                 onSelect = function()
                     if state2 then
-                        level2func = loadfile(love.filesystem.getSaveDirectory().."/2.txt")
-                        level2func()
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/2.txt")
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/2Level.txt")
+                        gStateMachine:change('mainmenu')
                     else
-                        party = Party:init()
-                        gStateMachine:change('textstate', {gQuotes[1], 'gamestate', {party, nil, nil, nil, 2}})
+                        gStateMachine:change('mainmenu')
                     end
                 end
             },
@@ -74,23 +68,29 @@ function GameMenu:enter()
                 text = text3,
                 onSelect = function ()
                     if state3 then
-                        level3func = loadfile(love.filesystem.getSaveDirectory().."/3.txt")
-                        level3func()
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/3.txt")
+                        success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/3Level.txt")
+                        gStateMachine:change('mainmenu')
                     else
-                        party = Party:init()
-                        gStateMachine:change('textstate', {gQuotes[1], 'gamestate', {party, nil, nil, nil, 3}})
+                        gStateMachine:change('mainmenu')
                     end
+                end
+            },
+            {
+                text = "Return to Main Menu",
+                onSelect = function ()
+                    gStateMachine:change('mainmenu')
                 end
             }
         }
     }
 end
 
-function GameMenu:update(dt)
+function DeleteMenu:update(dt)
     self.mainMenu:update(dt)
 end
 
-function GameMenu:render()
+function DeleteMenu:render()
     love.graphics.clear(188, 188, 188, 255)
     love.graphics.setColor(190, 0, 0, 255)
     love.graphics.setFont(gFonts['large'])

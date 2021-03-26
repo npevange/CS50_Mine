@@ -20,7 +20,7 @@ function Selection:init(def)
 
     self.height = def.height
     self.width = def.width
-    self.font = def.font or gFonts['medium']
+    self.font = def.font or gFonts['small']
 
     self.gapHeight = self.height / #self.items
 

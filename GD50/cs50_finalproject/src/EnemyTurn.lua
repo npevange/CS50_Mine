@@ -6,9 +6,9 @@
     npevangelista@ucdavis.edu
 ]]
 
-function EnemyTurn(enemy, levelStage, index)
+function EnemyTurn(enemy, levelStage, index, combatMenu)
     if enemy.AI == "aggro" then
-        FindClosestHero(enemy, levelStage, index)
+        FindClosestHero(enemy, levelStage, index, combatMenu)
 
     elseif enemy.AI == 'astar' then
         -- A_Star(enemy, levelStage, index)
@@ -17,7 +17,7 @@ function EnemyTurn(enemy, levelStage, index)
         --safe 
     elseif enemy.AI == "boss" then
         if enemy.currentHP < enemy.HP then
-            FindClosestHero(enemy, levelStage, index)
+            FindClosestHero(enemy, levelStage, index, combatMenu)
         end
     end
 end

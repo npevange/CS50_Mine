@@ -6,7 +6,7 @@
     npevangelista@ucdavis.edu
 ]]
 
-function FindClosestHero(enemy, levelStage, index)
+function FindClosestHero(enemy, levelStage, index, combatMenu)
     local closestHeroIndex = 1
     local distance = 10000
     local checkMove = false
@@ -86,7 +86,7 @@ function FindClosestHero(enemy, levelStage, index)
     enemy.y = enemy.y + moveY
     checkRange = CheckRange(enemy, levelStage.entities[closestHeroIndex])
     if checkRange == true then
-        deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage)
+        deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage, combatMenu)
         if deadUnit == true then
             if enemy.currentHP < 1 then
                 table.remove(levelStage.enemies, index)
@@ -97,9 +97,3 @@ function FindClosestHero(enemy, levelStage, index)
         end
     end
 end
-
-
--- Timer.tween(0.1, {
---     [self.highlightedTile] = {x = newTile.x, y = newTile.y},
---     [newTile] = {x = self.highlightedTile.x, y = self.highlightedTile.y}
--- })

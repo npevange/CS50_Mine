@@ -15,20 +15,29 @@
 
 CharacterStats = Class{}
 
-function CharacterStats:init(def, referenceGroup, referenceUnit)
+function CharacterStats:init(def, mapHit, mapDef, referenceGroup, referenceUnit)
     self.referenceGroup = referenceGroup
     self.referenceUnit = referenceUnit
+    self.mapHit = mapHit
+    self.mapDef = mapDef
+    if self.mapDef[self.referenceUnit.y][self.referenceUnit.x] >= 0 then
+        defenseText = ("Defense: " .. self.referenceUnit.Defense .. " + " .. self.mapDef[self.referenceUnit.y][self.referenceUnit.x])
+        speedText = ("Speed: " .. self.referenceUnit.Speed .. " + " .. self.mapHit[self.referenceUnit.y][self.referenceUnit.x] .." dodge")
+    else
+        defenseText = ("Defense: " .. self.referenceUnit.Defense .. " " .. self.mapDef[self.referenceUnit.y][self.referenceUnit.x])
+        speedText = ("Speed: " .. self.referenceUnit.Speed .. " " .. self.mapHit[self.referenceUnit.y][self.referenceUnit.x] .." dodge")
+    end
     self.items = {{text = string.format(self.referenceUnit.name)},
     {text = string.format("HP: " .. self.referenceUnit.currentHP)},
     {text = string.format("Attack: " .. self.referenceUnit.Attack)},
-    {text = string.format("Defense: " .. self.referenceUnit.Defense)},
-    {text = string.format("Speed: " .. self.referenceUnit.Speed)}}
+    {text = string.format(defenseText)},
+    {text = string.format(speedText)}}
     self.x = def.x
     self.y = def.y
 
     self.height = def.height
     self.width = def.width
-    self.font = gFonts['medium']
+    self.font = gFonts['small']
 
     self.gapHeight = self.height / #self.items
 
@@ -40,13 +49,21 @@ function CharacterStats:update(dt, x, y)
     for i, units in pairs(self.referenceGroup) do
         if self.referenceGroup[i].x == x and self.referenceGroup[i].y == y then
             self.referenceUnit = self.referenceGroup[i]
+            if self.mapDef[self.referenceUnit.y][self.referenceUnit.x] >= 0 then
+                defenseText = ("Defense: " .. self.referenceUnit.Defense .. " + " .. self.mapDef[self.referenceUnit.y][self.referenceUnit.x])
+                speedText = ("Speed: " .. self.referenceUnit.Speed .. " + " .. self.mapHit[self.referenceUnit.y][self.referenceUnit.x] .." dodge")
+            else
+                defenseText = ("Defense: " .. self.referenceUnit.Defense .. " " .. self.mapDef[self.referenceUnit.y][self.referenceUnit.x])
+                speedText = ("Speed: " .. self.referenceUnit.Speed .. " " .. self.mapHit[self.referenceUnit.y][self.referenceUnit.x] .." dodge")
+            end
         end
     end
+
     self.items = {{text = string.format(self.referenceUnit.name)},
     {text = string.format("HP: " .. self.referenceUnit.currentHP)},
     {text = string.format("Attack: " .. self.referenceUnit.Attack)},
-    {text = string.format("Defense: " .. self.referenceUnit.Defense)},
-    {text = string.format("Speed: " .. self.referenceUnit.Speed)}}
+    {text = string.format(defenseText)},
+    {text = string.format(speedText)}}
 end
 
 function CharacterStats:render()
