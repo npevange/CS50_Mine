@@ -6,8 +6,10 @@
     npevangelista@ucdavis.edu
 ]]
 
+-- Add save path for game save states to required path
 sPath = love.filesystem.getSaveDirectory()
 love.filesystem.setRequirePath("?.lua;?/init.lua;" .. sPath .. "/?;?OdysseyQuest?")
+-- require dependencies, incorporating other necessary files
 require 'src/Dependencies'
 
 function love.load()
@@ -24,6 +26,7 @@ function love.load()
         resizable = true
     })
 
+    -- initialize states
     gStateMachine = StateMachine {
         ['mainmenu'] = function() return MainMenu() end,
         ['control'] = function() return Controls() end,
@@ -50,6 +53,7 @@ function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
 end
 
+-- keyboard button presses
 function love.keyboard.wasPressed(key)
     if love.keyboard.keysPressed[key] then
         return true

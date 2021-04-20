@@ -13,6 +13,7 @@ function GameMenu:enter()
     local state2 = false
     local state3 = false
 
+    -- Check for saved state files, and if found then allow user to load
     if love.filesystem.exists( "1.txt" ) == true then
         state1 = true
         level1func = loadfile(love.filesystem.getSaveDirectory( ).."/1Level.txt")

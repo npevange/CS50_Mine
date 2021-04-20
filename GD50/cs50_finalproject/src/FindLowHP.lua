@@ -8,29 +8,37 @@
     -Initial Enemy AI, finds closest enemy to target, if enemies are same range then defaults to priority 1.
 ]]
 
-function FindClosestHero(enemy, levelStage, index, combatMenu)
-    local closestHeroIndex = 1
-    local distance = 10000
+--[[
+    GD50
+    Final Project
+
+    Author: Nathan Evangelista
+    npevangelista@ucdavis.edu
+
+    -Test Enemy AI, finds lowest HP enemy to target.
+]]
+
+function FindLowHP(enemy, levelStage, index, combatMenu)
+    local targetHeroIndex = 1
+    local tempHPCurrent = 1000000
     local checkMove = false
     local checkRange = false
     local deadUnit = false
     local moveX = 0
     local moveY = 0
     for i, hero in pairs(levelStage.entities) do
-        local tempDistanceX = enemy.x - levelStage.entities[i].x
-        local tempDistanceY = enemy.y - levelStage.entities[i].y
-        local tempDistance = math.abs(tempDistanceX) + math.abs(tempDistanceY)
-        if tempDistance < distance then
-            closestHeroIndex = i
-            distance = tempDistance
+        local tempHP = levelStage.entities[i].currentHP
+        if tempHP < tempHPCurrent then
+            targetHeroIndex = i
+            tempHPCurrent = tempHP
         end
     end
-    -- Relative X and Y move directions taking the chosen target x and y and subtracting the current enemy x and y (relative) to trace initial path
-    local relativeX = levelStage.entities[closestHeroIndex].x - enemy.x
-    local relativeY = levelStage.entities[closestHeroIndex].y - enemy.y
 
 
-    -- Vertical path between enemy and target
+    local relativeX = levelStage.entities[targetHeroIndex].x - enemy.x
+    local relativeY = levelStage.entities[targetHeroIndex].y - enemy.y
+
+    -- Vertical
     if relativeX == 0 then
         moveX = 0
         moveY = enemy.Move
@@ -42,7 +50,7 @@ function FindClosestHero(enemy, levelStage, index, combatMenu)
             moveY = moveY * -1
         end
 
-    -- Horizontal path between enemy and target
+    -- Horizontal
     elseif relativeY == 0 then
         moveX = enemy.Move
         moveY = 0
@@ -55,7 +63,7 @@ function FindClosestHero(enemy, levelStage, index, combatMenu)
 
     -- Triangles
     else
-        -- Triangle math to determine closest vector between enemy and target.
+        -- Triangle math
         local hypotenuse = math.sqrt((relativeX ^ 2) + (relativeY ^ 2))
         moveX = (relativeX * enemy.Move) / hypotenuse
         moveY = (relativeY * enemy.Move) / hypotenuse
@@ -75,7 +83,7 @@ function FindClosestHero(enemy, levelStage, index, combatMenu)
         end
     end
 
-    --Check the current move trajectory
+
     checkMove = CheckMove(enemy, moveX, moveY, levelStage)
     while(checkMove == false) do
         moveX, moveY = AdjustMove(enemy, moveX, moveY, levelStage)
@@ -89,15 +97,15 @@ function FindClosestHero(enemy, levelStage, index, combatMenu)
     })
     enemy.x = enemy.x + moveX
     enemy.y = enemy.y + moveY
-    checkRange = CheckRange(enemy, levelStage.entities[closestHeroIndex])
+    checkRange = CheckRange(enemy, levelStage.entities[targetHeroIndex])
     if checkRange == true then
-        deadUnit = CombatCalculator(enemy, levelStage.entities[closestHeroIndex], levelStage, combatMenu)
+        deadUnit = CombatCalculator(enemy, levelStage.entities[targetHeroIndex], levelStage, combatMenu)
         if deadUnit == true then
             if enemy.currentHP < 1 then
                 table.remove(levelStage.enemies, index)
             end
-            if levelStage.entities[closestHeroIndex].currentHP < 1 then
-                table.remove(levelStage.entities, closestHeroIndex)
+            if levelStage.entities[targetHeroIndex].currentHP < 1 then
+                table.remove(levelStage.entities, targetHeroIndex)
             end
         end
     end

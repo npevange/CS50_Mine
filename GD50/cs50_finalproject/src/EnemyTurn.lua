@@ -10,6 +10,8 @@ function EnemyTurn(enemy, levelStage, index, combatMenu)
     if enemy.AI == "aggro" then
         FindClosestHero(enemy, levelStage, index, combatMenu)
 
+        -- FindLowHP(enemy, levelStage, index, combatMenu)
+
     elseif enemy.AI == 'astar' then
         -- A_Star(enemy, levelStage, index)
     
