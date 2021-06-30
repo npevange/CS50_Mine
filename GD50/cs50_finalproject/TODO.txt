@@ -3,3 +3,22 @@ Enemy Ai (A star)
 More (prebuilt) level layouts
 Add Loop 3
 Elite Enemy AI
+FindLowHp.lua
+DefaultMove.lua
+
+4/20/2021 : Blaze it Notes
+TODO: Loop 3:create story, characters + stats, new mechanics for Alex / Josh. Add ability to start game at loop 2 / loop 3 after completing previous loops.
+
+Loop menu with all unlocked for now.
+
+Notes:
+-
+
+6/18/2021: New concentration notes
+TODO: Gameplay QOL, and strategic choices
+
+Delete Save files? Need admin access or something??? : 
+
+Enemies that move / attack when a hero comes into a certain range? : 
+
+Enemies that attack low hp ( might have started this? )? : 

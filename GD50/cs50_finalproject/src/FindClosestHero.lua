@@ -16,7 +16,7 @@ function FindClosestHero(enemy, levelStage, index, combatMenu)
     local deadUnit = false
     local moveX = 0
     local moveY = 0
-    for i, hero in pairs(levelStage.entities) do
+    for i, target in pairs(levelStage.entities) do
         local tempDistanceX = enemy.x - levelStage.entities[i].x
         local tempDistanceY = enemy.y - levelStage.entities[i].y
         local tempDistance = math.abs(tempDistanceX) + math.abs(tempDistanceY)

@@ -14,7 +14,7 @@ require 'src/Dependencies'
 
 function love.load()
     love.window.setTitle('Odyssey Quest')
-    -- love.window.setTitle(love.filesystem.getSaveDirectory( ))
+    love.window.setTitle(love.filesystem.getSaveDirectory( ))
 
     love.graphics.setDefaultFilter('nearest', 'nearest') --If I want to make it blocky
     love.audio.setVolume( 0.25 )

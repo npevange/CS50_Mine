@@ -7,7 +7,7 @@
 ]]
 
 HERO_IDS = {
-    'Andrew', 'Christian', 'Nick', 'Cameron'
+    'Andrew', 'Christian', 'Nick', 'Cameron', 'Alex', 'Josh'
 }
 
 HERO_DEFS = {
@@ -69,6 +69,36 @@ HERO_DEFS = {
         DefenseIV = 3,
         SpeedIV = 2,
         heroNum = 4,
+        level = 1
+    },
+    ['Alex'] = {
+        name = 'Alex',
+        sprite = 'Alex',
+        HPbase = 4,
+        Attackbase = 3,
+        Defensebase = 2,
+        Speedbase = 6,
+        Move = 3,
+        HPIV = 4,
+        AttackIV = 4,
+        DefenseIV = 2,
+        SpeedIV = 5,
+        heroNum = 5,
+        level = 1
+    },
+    ['Josh'] = {
+        name = 'Josh',
+        sprite = 'Josh',
+        HPbase = 7,
+        Attackbase = 3,
+        Defensebase = 2,
+        Speedbase = 5,
+        Move = 3,
+        HPIV = 3,
+        AttackIV = 4,
+        DefenseIV = 3,
+        SpeedIV = 3,
+        heroNum = 6,
         level = 1
     }
 }

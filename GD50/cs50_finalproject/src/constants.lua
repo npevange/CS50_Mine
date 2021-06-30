@@ -70,7 +70,8 @@ gQuotes = {
               "",
 --[[lv 14]]   "ACT V: REVOLUTION\n\nChristian: Did you think it was weird how that creature tracked us so perfectly.\nAndrew: None of our usual twists and tricks worked on it.\nNick: Morning fellas, you both look troubled.\nChristian: Nothing Nick, we are just tired from that engagement.\nAndrew: I wonder how many more of those fearsome beasts are out there.\nNick: I wouldn't expect to see more of them. I think you've gotten most of them now.\n\nBlessing of the Hunter: Only those who slay the Hunter can wield it's power to defeat the mightiest of foes.",
 --[[lv 15]]   "Nick: We're approaching the empires last stronghold. The rebels will be closing in soon. We just need to take out the gatekeeper.",
---[[lv 16]]   "",
+              "",
+
 
 --[[lv 17]]   "ACT I: DEJA VU\n\nNick: I'm surprised we made it out of there. I thought we were done for.\nCameron: Andrew and Christian are still stuck in there, if they don't make it out we can't let their sacrifice be in vain.\nNick: Then let's cause some chaos on our way out.\nCameron: You're right. The Empire will face our wrath!\n\nBlessing of the Villian: Sometimes we must stoop low for the greater good.",
 --[[lv 18]]   "Cameron: When we return to camp the rebellion will be refuled. We will coordinate uprisings around the kingdom for phase one.\nNick: I can't wait to make them pay for all the evil they've brought to this world.\nCameron: Let this be a shining beacon of hope.",
@@ -86,7 +87,26 @@ gQuotes = {
 --[[lv 28]]   "Nick: Every night I hear the howling growing closer.\nCameron: Do you think we can rely on all the legends to be true.\nNick: If you're thinking of leaving a sacrifice, that's horrible. I wouldn't expect that thought from you, unless you are feeling that desperate.\nCameron: The Beast is said the be an ancient evil. Unstoppable is its might. Unfathomable is its terror.\nNick: These other creatures have been manageable so let's keep our heads up for now.",
                 "",
 --[[lv 30]]   "ACT V: RETRIBUTION\n\nCameron:...\nNick: That wasn't so bad. We're still on track with the rebellion.\nCameron: What if the Empire has more of those unspeakable horrors. I don't know how much more I can take.\nNick: We're so close now. Just keep strong for a bit longer. All of our hopes and dreams, the efforts of so many have led to this.\nCameron: I hope that it is worth it.\n\nBlessing of the Hunter: Only those who slay the Hunter can wield its power to defeat the mightiest of foes.",
---[[lv 31]]   "Nick: We're approaching the empires last stronghold. The rebels are closing in and all their escapes are sealed. This is why we fight."
+--[[lv 31]]   "Nick: We're approaching the empires last stronghold. The rebels are closing in and all their escapes are sealed. This is why we fight.",
+              "",
+
+
+--[[lv 33]]   "ACT I:",
+--[[lv 34]]   "Something",
+--[[lv 35]]   "Something",
+              "",
+--[[lv 36]]   "ACT II:",
+--[[lv 37]]   "Something",
+              "",
+--[[lv 38]]   "ACT III:",
+--[[lv 39]]   "Something",
+              "",
+--[[lv 40]]   "ACT IV:",
+--[[lv 41]]   "Something",
+              "",
+--[[lv 42]]   "ACT V:",
+--[[lv 43]]   "Something",
+              ""
 }
 
 gSaveQuotes = {
@@ -97,13 +117,20 @@ gBossQuotes = {
     "In dead of night they lurk. The chilling reach is death at a touch.\nFlee mortal, run far and pray, or stay and join us.",
     "These are not the Golems of Lore. Born of clay and fused with life. Monstrous possession brings fury and death.\nAndrew: Cameron? What's happening?\nCameron: Pain\nChristian: He's changing , we never should have come here.\nAndrew: Can we stop this. Should we do something?\nNick Wait, give him space.\nChristian: No! He's changing, help him.",
     "You search in vain for the fountain of youth.\nNever pausing to question your own knowledge, so uncouth.\n",
-    'At dusk, a whimper.\nAt night, they howl.\nRays of respite, solace in sunlight.',
-    'The gate has been kept and the rituals are done.\nA cycle unbroken, prophetic, and poetic.',
+    "At dusk, a whimper.\nAt night, they howl.\nRays of respite, solace in sunlight.",
+    "The gate has been kept and the rituals are done.\nA cycle unbroken, prophetic, and poetic.",
+
     "This is not the monster expected, but a son that never should have been.\nThe unholy union between bloodsucker and mortal, he stalks dusk til dawn.",
     "This Golem was not made, but born.\nA tiny sapling grown and grafted onto a soul.\nTheir wrath is gentle, a return to nature, a deadly spring bloom.",
     "You search in vain for the fountain of youth.\nA timeless river throughout history, twisting and turning like a serpent.\nBeware it's venomous bite for eternity is not what you expected.",
-    'At Dawn the Beast was born.\nAt Dusk, it ran free.\nMoonlight chills running through the air, hunting for sport, inescapable as the night.',
-    'A thousand loops, as uniform as a sphere.\nA curse or a cure, to repeat ad infinitum.\nNever exactly the same, but never divergent.\n The gatekeeper will die, the cycle repeats, a new hero is chosen on this endless journey.'
+    "At Dawn the Beast was born.\nAt Dusk, it ran free.\nMoonlight chills running through the air, hunting for sport, inescapable as the night.",
+    "A thousand loops, as uniform as a sphere.\nA curse or a cure, to repeat ad infinitum.\nNever exactly the same, but never divergent.\n The gatekeeper will die, the cycle repeats, a new hero is chosen on this endless journey.",
+    
+    "",
+    "",
+    "",
+    "",
+    ""
 }
 
 gQuoteGameEnd = {

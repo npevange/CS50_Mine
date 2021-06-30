@@ -57,6 +57,7 @@ function DeleteMenu:enter()
                 onSelect = function()
                     if state2 then
                         success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/2.txt")
+                        love.window.setTitle(tostring(success))
                         success = love.filesystem.remove(love.filesystem.getSaveDirectory( ).."/2Level.txt")
                         gStateMachine:change('mainmenu')
                     else
